@@ -17,6 +17,6 @@ public class CategoryDaoImpl implements CategoryDao {
 	
 	@Override
 	public List<Category> getCategory() {
-		return null;
+		return categoryMapper.selectCategory();
 	}
 }

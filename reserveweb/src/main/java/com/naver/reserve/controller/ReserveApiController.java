@@ -19,6 +19,8 @@ public class ReserveApiController {
 	
 	@GetMapping("categories")
 	public List<Category> getCategory() {
-		return categoryService.getCategory();
+		//System.out.println("getCategory");
+		System.out.println(categoryService.getCategory());
+		return null;
 	}
 }
