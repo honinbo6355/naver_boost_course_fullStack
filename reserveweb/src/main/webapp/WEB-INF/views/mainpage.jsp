@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
     <title>네이버 예약</title>
     <link href="<%=request.getContextPath() %>/resources/css/style.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -177,6 +178,8 @@
             </a>
         </li>
     </script>
+    
+    <script type="text/javascript" src="<%=request.getContextPath() %>/resources/js/mainpage.js"></script>
 </body>
 
 </html>
