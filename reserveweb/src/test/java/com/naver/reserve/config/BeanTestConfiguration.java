@@ -15,18 +15,18 @@ import com.naver.reserve.service.impl.CategoryServiceImpl;
 @Configuration
 public class BeanTestConfiguration {
 
-	@Bean("reserveApiController")
-	public ReserveApiController reserveApiController() {
-		return new ReserveApiController();
-	}
-	
-	@Bean("categoryService")
-	public CategoryService categoryService() {
-		return new CategoryServiceImpl();
-	}
-	
-	@Bean("categoryDao")
-	public CategoryDao categoryDao() {
-		return new CategoryDaoImpl();
-	}
+//	@Bean("reserveApiController")
+//	public ReserveApiController reserveApiController() {
+//		return new ReserveApiController();
+//	}
+//
+//	@Bean("categoryService")
+//	public CategoryService categoryService() {
+//		return new CategoryServiceImpl();
+//	}
+//
+//	@Bean("categoryDao")
+//	public CategoryDao categoryDao() {
+//		return new CategoryDaoImpl();
+//	}
 }
