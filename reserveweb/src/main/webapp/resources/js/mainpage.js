@@ -1,15 +1,24 @@
-(function() {
-	var mainPage = {
-		init : function() {
-			alert("init");
-		},
+var mainPage = {
+	init : function() {
+		this.getCategories();
+	},
 
-		getCategories : function() {
+	getCategories : function() {
+		$.ajax({
+			url: "/api/categories",
+			type: "GET",
+			dataType: "json",
+			success : function(data) {
+				console.log("data : " + data);
 
-		}
-	};
+			},
+			error : function(xhr, textStatus, errorThrown) {
 
-	$(document).ready(function() {
-		mainPage.init();
-	});
-})();
+			}
+		});
+	}
+};
+
+$(document).ready(function() {
+	mainPage.init();
+});
