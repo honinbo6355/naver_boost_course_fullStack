@@ -8,9 +8,21 @@ var mainPage = {
 	},
 
 	getProducts : function(id) {
-		console.log("id : " + id);
 
-		
+		$.ajax({
+			url : "/api/products",
+			data : {
+				categoryId: id
+			},
+			type: "GET",
+			dataType: "json",
+			success : function (data) {
+
+			},
+			error : function(xhr, textStatus, errorThrown) {
+
+			}
+		});
 	},
 
 	getCategories : function() {
