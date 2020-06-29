@@ -17,7 +17,7 @@ var mainPage = {
 			type: "GET",
 			dataType: "json",
 			success : function (data) {
-
+				console.log("data : " + data);
 			},
 			error : function(xhr, textStatus, errorThrown) {
 
