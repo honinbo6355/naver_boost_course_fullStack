@@ -1,10 +1,10 @@
 package com.naver.reserve.dao;
 
-import com.naver.reserve.dto.Product;
+import com.naver.reserve.dto.response.ProductResponseDto;
 
 import java.util.List;
 
 public interface ProductDao {
 
-    List<Product> getProduct(String categoryId);
+    List<ProductResponseDto> getProduct(String categoryId);
 }

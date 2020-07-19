@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.naver.reserve.dto.Category;
+import com.naver.reserve.dto.response.CategoryResponseDto;
 
 @Mapper
 public interface CategoryMapper {
 
-	List<Category> selectCategory();
+	List<CategoryResponseDto> selectCategory();
 }

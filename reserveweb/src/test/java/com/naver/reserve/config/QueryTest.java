@@ -15,16 +15,16 @@ import com.naver.reserve.controller.ReserveApiController;
 @ContextConfiguration(classes = {ApplicationConfig.class, BeanTestConfiguration.class})
 public class QueryTest {
 
-	@Autowired
-	private ReserveApiController reserveApiController;
-	
+//	@Autowired
+//	private ReserveApiController reserveApiController;
+
 	@Before
 	public void setUp() throws Exception {
-        
+
     }
-	
+
 	@Test
 	public void queryTest() throws Exception {
-		System.out.println(reserveApiController.getCategory());
+
 	}
 }

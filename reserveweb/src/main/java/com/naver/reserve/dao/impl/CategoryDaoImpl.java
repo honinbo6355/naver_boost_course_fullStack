@@ -7,16 +7,16 @@ import org.springframework.stereotype.Repository;
 
 import com.naver.reserve.dao.CategoryDao;
 import com.naver.reserve.dao.mapper.CategoryMapper;
-import com.naver.reserve.dto.Category;
+import com.naver.reserve.dto.response.CategoryResponseDto;
 
 @Repository
 public class CategoryDaoImpl implements CategoryDao {
 
 	@Autowired
 	private CategoryMapper categoryMapper;
-	
+
 	@Override
-	public List<Category> getCategory() {
+	public List<CategoryResponseDto> getCategory() {
 		return categoryMapper.selectCategory();
 	}
 }

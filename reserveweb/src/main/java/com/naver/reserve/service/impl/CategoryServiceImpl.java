@@ -2,12 +2,12 @@ package com.naver.reserve.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.naver.reserve.dto.Header;
 import org.springframework.stereotype.Service;
 
 import com.naver.reserve.dao.CategoryDao;
 import com.naver.reserve.dao.impl.CategoryDaoImpl;
-import com.naver.reserve.dto.Category;
+import com.naver.reserve.dto.response.CategoryResponseDto;
 import com.naver.reserve.service.CategoryService;
 
 @Service
@@ -20,7 +20,16 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public List<Category> getCategory() {
-		return categoryDao.getCategory();
+	public Header getCategory() {
+		Header header = new Header();
+		try {
+			List<CategoryResponseDto> categories = categoryDao.getCategory();
+			header.setData(categories);
+			header.OK();
+		} catch (Exception e) {
+			e.printStackTrace();
+			header.ERROR();
+		}
+		return header;
 	}
 }
