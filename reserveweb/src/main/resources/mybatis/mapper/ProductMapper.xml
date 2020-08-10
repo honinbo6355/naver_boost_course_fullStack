@@ -18,4 +18,13 @@
             </if>
         </where>
 	</select>
+
+    <select id="selectProductCount" resultType="int">
+        SELECT COUNT(*) AS count
+        FROM product
+        <if test="categoryId != null and categoryId != ''">
+            GROUP BY category_id
+            HAVING category_id = #{categoryId}
+        </if>
+    </select>
 </mapper>

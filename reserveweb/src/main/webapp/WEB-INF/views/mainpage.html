@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="section_event_tab">
-                <ul class="event_tab_lst tab_lst_min">
+                <ul class="event_tab_lst tab_lst_min" id="category_tab">
                     <li class="item" data-category="0" onclick="mainPage.getProducts('')">
                         <a class="anchor active"> <span>전체리스트</span> </a>
                     </li>
@@ -83,8 +83,8 @@
                 </ul>
             </div>
             <div class="section_event_lst">
-                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink">10개</span> 있습니다</p>
-                <div class="wrap_event_box">
+                <p class="event_lst_txt">바로 예매 가능한 행사가 <span class="pink" id="product_count"></span> 있습니다</p>
+                <div class="wrap_event_box" id="wrap_event_list">
                     <!-- [D] lst_event_box 가 2컬럼으로 좌우로 나뉨, 더보기를 클릭할때마다 좌우 ul에 li가 추가됨 -->
                     <!--
                     <ul class="lst_event_box">

@@ -26,7 +26,11 @@ public class ProductServiceImpl implements ProductService {
         try {
             Map<String, Object> resultMap = new HashMap<>();
             List<ProductResponseDto> productList = productDao.getProduct(categoryId);
+            int productCount = productDao.getProductCount(categoryId);
+
             resultMap.put("productList", productList);
+            resultMap.put("productCount", productCount);
+
             header.setData(resultMap);
             header.OK();
         } catch (Exception e) {

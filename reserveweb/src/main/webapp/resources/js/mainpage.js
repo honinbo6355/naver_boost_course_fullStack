@@ -42,14 +42,16 @@ var mainPage = {
 	},
 
 	drawProducts : function(response) {
-		$('.wrap_event_box').empty();
+		$('#wrap_event_list').empty();
 
 		if (response.data.productList.length === 1)
-			$('.wrap_event_box').append($('<ul>'), { class : 'lst_event_box'});
+			$('#wrap_event_list').append($('<ul>', {class: 'lst_event_box'}));
 		else if (response.data.productList.length >= 2) {
-			$('.wrap_event_box').append($('<ul>', {class: 'lst_event_box'}));
-			$('.wrap_event_box').append($('<ul>', {class: 'lst_event_box'}));
+			$('#wrap_event_list').append($('<ul>', {class: 'lst_event_box'}));
+			$('#wrap_event_list').append($('<ul>', {class: 'lst_event_box'}));
 		}
+
+		$("#product_count").html(response.data.productCount + "개");
 
 		$.each(response.data.productList, function(index, item) {
 			var parentNodeIdx = index%2;
@@ -59,27 +61,23 @@ var mainPage = {
 
 	drawCategories : function(response) {
 		$.each(response.data, function(index, item) {
-			$(".event_tab_lst.tab_lst_min").append(
-				$('<li>',
-					{
-						class: "item",
-						"data-category": item.id,
-						onclick: "mainPage.getProducts(" + item.id + ")"
-					}
-				).append(
-					$('<a>',
-						{
-							class: "anchor"
-						}
-					).append(
-						$('<span>',
-							{
-								text: item.name
-							}
-						)
-					)
-				)
-			);
+			var li = document.createElement("li");
+			var a = document.createElement("a");
+			var span = document.createElement("span");
+
+			li.className = "item";
+			li.dataset.category = item.id;
+			li.addEventListener("click", function() {
+				mainPage.getProducts(item.id);
+			});
+
+			a.className = "anchor";
+			span.textContent = item.name;
+
+			a.append(span);
+			li.append(a);
+
+			$("#category_tab").append(li);
 		});
 	}
 };
