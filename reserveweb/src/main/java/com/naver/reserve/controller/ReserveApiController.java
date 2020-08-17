@@ -3,6 +3,7 @@ package com.naver.reserve.controller;
 import java.util.List;
 
 import com.naver.reserve.dto.Header;
+import com.naver.reserve.dto.request.MoreViewRequestDto;
 import com.naver.reserve.dto.response.ProductResponseDto;
 import com.naver.reserve.service.ProductService;
 import com.naver.reserve.service.impl.ProductServiceImpl;
@@ -34,9 +35,9 @@ public class ReserveApiController {
 	}
 
 	@GetMapping("products")
-	public Header getProducts(@RequestParam String categoryId) {
+	public Header getProducts(@RequestParam String categoryId, @RequestParam(defaultValue = "0") int start) {
 		System.out.println("categoryId : " + categoryId);
-
-		return productService.getProduct(categoryId);
+		MoreViewRequestDto moreViewRequestDto = new MoreViewRequestDto(start);
+		return productService.getProduct(categoryId, moreViewRequestDto);
 	}
 }
