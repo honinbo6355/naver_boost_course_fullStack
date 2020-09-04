@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
 
-    List<ProductResponseDto> selectProduct(@Param("categoryId") String categoryId, MoreViewRequestDto moreViewRequestDto);
+    List<ProductResponseDto> selectProduct(@Param("categoryId") String categoryId, @Param("moreViewRequestDto") MoreViewRequestDto moreViewRequestDto);
 
     int selectProductCount(@Param("categoryId") String categoryId);
 }

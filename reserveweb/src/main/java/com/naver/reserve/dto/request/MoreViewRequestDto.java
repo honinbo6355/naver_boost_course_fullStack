@@ -17,11 +17,11 @@ public class MoreViewRequestDto {
         this.start = start;
     }
 
-    public int startViewCount() {
+    public int getStartViewCount() {
         return start * defaultViewCount;
     }
 
-    public int endViewCount() {
-        return (start+1) * defaultViewCount;
+    public int getEndViewCount() {
+        return defaultViewCount;
     }
 }

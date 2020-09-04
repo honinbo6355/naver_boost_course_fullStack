@@ -1,6 +1,7 @@
 var mainPage = {
 	init : function() {
 		this.getCategories();
+		this.getProducts('');
 	},
 
 	eventListener : function() {
