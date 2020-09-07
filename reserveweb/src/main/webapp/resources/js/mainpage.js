@@ -9,21 +9,18 @@ var mainPage = {
 	},
 
 	getProducts : function(id) {
-
 		$.ajax({
 			url : "/api/products",
 			data : {
 				categoryId: id
 			},
 			type: "GET",
-			dataType: "json",
-			success : function (response) {
-				console.log("response : " + response);
-				mainPage.drawProducts(response);
-			},
-			error : function(xhr, textStatus, errorThrown) {
-
-			}
+			dataType: "json"
+		}).done(function( response, textStatus, jqXHR ) {
+			console.log("response : " + response);
+			mainPage.drawProducts(response);
+		}).fail(function( jqXHR, textStatus, errorThrown ) {
+			console.log("textStatus : " + textStatus);
 		});
 	},
 
@@ -31,14 +28,12 @@ var mainPage = {
 		$.ajax({
 			url: "/api/categories",
 			type: "GET",
-			dataType: "json",
-			success : function(response) {
-				console.log("response : " + response);
-				mainPage.drawCategories(response);
-			},
-			error : function(xhr, textStatus, errorThrown) {
-
-			}
+			dataType: "json"
+		}).done(function( response, textStatus, jqXHR ) {
+			console.log("response : " + response);
+			mainPage.drawCategories(response);
+		}).fail(function( jqXHR, textStatus, errorThrown ) {
+			console.log("textStatus : " + textStatus);
 		});
 	},
 
@@ -69,10 +64,10 @@ var mainPage = {
 			li.className = "item";
 			li.dataset.category = item.id;
 			li.addEventListener("click", function() {
-				mainPage.getProducts(item.id);
+				mainPage.selectCate(this);
 			});
 
-			a.className = "anchor";
+			a.className = "anchor category";
 			span.textContent = item.name;
 
 			a.append(span);
@@ -80,6 +75,14 @@ var mainPage = {
 
 			$("#category_tab").append(li);
 		});
+	},
+
+	selectCate : function(selectedCate) {
+		$('.anchor.category').removeClass('active');
+
+		$(selectedCate).children().addClass('active');
+
+		mainPage.getProducts(selectedCate.dataset.category);
 	}
 };
 
