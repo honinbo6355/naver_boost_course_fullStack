@@ -47,6 +47,23 @@ var mainPage = {
 			$('#wrap_event_list').append($('<ul>', {class: 'lst_event_box'}));
 		}
 
+		var div = document.createElement("div");
+		var button = document.createElement("button");
+		var span = document.createElement("span");
+
+		div.className = "more";
+		button.className = "btn";
+		button.dataset.view = 1;
+		button.addEventListener("click", function() {
+			mainPage.moreView(button);
+		});
+		span.textContent = "더보기";
+
+		button.append(span);
+		div.append(button);
+
+		$('#wrap_event_list').append(div);
+
 		$("#product_count").html(response.data.productCount + "개");
 
 		$.each(response.data.productList, function(index, item) {
@@ -83,6 +100,10 @@ var mainPage = {
 		$(selectedCate).children().addClass('active');
 
 		mainPage.getProducts(selectedCate.dataset.category);
+	},
+
+	moreView : function(button) {
+		debugger;
 	}
 };
 
