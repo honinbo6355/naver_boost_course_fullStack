@@ -4,7 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.naver.reserve.dao.mapper.CategoryMapper">
 	<select id="selectCategory" resultType="com.naver.reserve.dto.response.CategoryResponseDto">
-		SELECT *
-		FROM category
+		SELECT a.id, a.name, count(*) as count
+		FROM category a INNER JOIN product b
+		ON a.id = b.category_id
+		GROUP BY a.id
 	</select>
 </mapper>

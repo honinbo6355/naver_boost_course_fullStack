@@ -12,4 +12,5 @@ import lombok.ToString;
 public class CategoryResponseDto {
 	private int id;
 	private String name;
+	private int count;
 }
