@@ -7,7 +7,7 @@ var mainPage = {
 	},
 
 	eventListener : function() {
-
+		$("#moreViewBtn").on("click", mainPage.moreView);
 	},
 
 	getProducts : function(id) {
@@ -110,18 +110,19 @@ var mainPage = {
 	selectCate : function(selectedCate, count) {
 		$('.anchor.category').removeClass('active');
 		$(selectedCate).children().addClass('active');
-		$('#wrap_event_list').empty();
+		$('.lst_event_box').remove();
 
 		mainPage.setProductCount(count);
 		//mainPage.drawMoreViewBtn();
 		mainPage.getProducts(selectedCate.dataset.category);
 	},
 
-	moreView : function(button) {
+	moreView : function() {
 		debugger;
 	}
 };
 
 $(document).ready(function() {
 	mainPage.init();
+	mainPage.eventListener();
 });
