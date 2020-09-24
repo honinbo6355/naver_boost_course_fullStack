@@ -1,20 +1,22 @@
 var mainPage = {
 	totalProductCount : 0,
+	selectedCategoryId : '',
 
 	init : function() {
 		this.getCategories();
-		this.getProducts('');
+		this.getProducts(mainPage.selectedCategoryId);
 	},
 
 	eventListener : function() {
 		$("#moreViewBtn").on("click", mainPage.moreView);
 	},
 
-	getProducts : function(id) {
+	getProducts : function(id, view) {
 		$.ajax({
 			url : "/api/products",
 			data : {
-				categoryId: id
+				categoryId: id,
+				start: view
 			},
 			type: "GET",
 			dataType: "json"
@@ -117,8 +119,9 @@ var mainPage = {
 		mainPage.getProducts(selectedCate.dataset.category);
 	},
 
-	moreView : function() {
-		debugger;
+	moreView : function(event) {
+		mainPage.getProducts(mainPage.selectedCategoryId, event.target.dataset.view);
+		event.target.dataset.view++;
 	}
 };
 
