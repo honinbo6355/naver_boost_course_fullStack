@@ -11,12 +11,12 @@ var mainPage = {
 		$("#moreViewBtn").on("click", mainPage.moreView);
 	},
 
-	getProducts : function(id, view) {
+	getProducts : function(id, viewCount) {
 		$.ajax({
 			url : "/api/products",
 			data : {
 				categoryId: id,
-				start: view
+				start: viewCount
 			},
 			type: "GET",
 			dataType: "json"
@@ -62,13 +62,6 @@ var mainPage = {
 	// },
 
 	drawProducts : function(response) {
-		if (response.data.productList.length === 1)
-			$('#wrap_event_list').prepend($('<ul>', {class: 'lst_event_box'}));
-		else if (response.data.productList.length >= 2) {
-			$('#wrap_event_list').prepend($('<ul>', {class: 'lst_event_box'}));
-			$('#wrap_event_list').prepend($('<ul>', {class: 'lst_event_box'}));
-		}
-
 		$.each(response.data.productList, function(index, item) {
 			var parentNodeIdx = index%2;
 			$('#itemList').tmpl(item).appendTo($('.lst_event_box:eq(' + parentNodeIdx + ')'));
@@ -112,16 +105,18 @@ var mainPage = {
 	selectCate : function(selectedCate, count) {
 		$('.anchor.category').removeClass('active');
 		$(selectedCate).children().addClass('active');
-		$('.lst_event_box').remove();
+		$('.lst_event_box').empty();
 
+		$("#moreViewBtn").data("view", 1);
 		mainPage.setProductCount(count);
-		//mainPage.drawMoreViewBtn();
 		mainPage.getProducts(selectedCate.dataset.category);
 	},
 
-	moreView : function(event) {
-		mainPage.getProducts(mainPage.selectedCategoryId, event.target.dataset.view);
-		event.target.dataset.view++;
+	moreView : function() {
+		var viewCount = $("#moreViewBtn").data("view");
+
+		mainPage.getProducts(mainPage.selectedCategoryId, viewCount);
+		$("#moreViewBtn").data("view", viewCount+1);
 	}
 };
 
