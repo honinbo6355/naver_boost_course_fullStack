@@ -6,7 +6,9 @@ import com.naver.reserve.dto.Header;
 import com.naver.reserve.dto.request.MoreViewRequestDto;
 import com.naver.reserve.dto.response.ProductResponseDto;
 import com.naver.reserve.service.ProductService;
+import com.naver.reserve.service.PromotionService;
 import com.naver.reserve.service.impl.ProductServiceImpl;
+import com.naver.reserve.service.impl.PromotionServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,10 +24,12 @@ public class ReserveApiController {
 
 	private CategoryService categoryService;
 	private ProductService productService;
+	private PromotionService promotionService;
 
-	public ReserveApiController(CategoryServiceImpl categoryService, ProductServiceImpl productService) {
+	public ReserveApiController(CategoryServiceImpl categoryService, ProductServiceImpl productService, PromotionServiceImpl promotionService) {
 		this.categoryService = categoryService;
 		this.productService = productService;
+		this.promotionService = promotionService;
 	}
 
 	@GetMapping("categories")
@@ -39,5 +43,10 @@ public class ReserveApiController {
 		System.out.println("categoryId : " + categoryId);
 		MoreViewRequestDto moreViewRequestDto = new MoreViewRequestDto(start);
 		return productService.getProduct(categoryId, moreViewRequestDto);
+	}
+
+	@GetMapping("promotions")
+	public Header getPromotions() {
+		return promotionService.getPromotion();
 	}
 }
