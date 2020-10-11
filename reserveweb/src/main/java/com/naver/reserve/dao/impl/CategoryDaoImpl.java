@@ -2,6 +2,7 @@ package com.naver.reserve.dao.impl;
 
 import java.util.List;
 
+import com.naver.reserve.dto.response.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,7 @@ public class CategoryDaoImpl implements CategoryDao {
 	private CategoryMapper categoryMapper;
 
 	@Override
-	public List<CategoryResponseDto> getCategory() {
+	public List<Category> getCategory() {
 		return categoryMapper.selectCategory();
 	}
 }

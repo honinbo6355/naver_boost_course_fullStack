@@ -1,11 +1,10 @@
 package com.naver.reserve.service;
 
-import com.naver.reserve.dto.Header;
 import com.naver.reserve.dto.request.MoreViewRequestDto;
 import com.naver.reserve.dto.response.ProductResponseDto;
 
-import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
-    Header getProduct(String categoryId, MoreViewRequestDto moreViewRequestDto);
+    ProductResponseDto getProduct(String categoryId, MoreViewRequestDto moreViewRequestDto);
 }

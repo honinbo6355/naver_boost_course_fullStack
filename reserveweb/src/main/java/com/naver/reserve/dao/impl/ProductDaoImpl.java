@@ -3,6 +3,7 @@ package com.naver.reserve.dao.impl;
 import com.naver.reserve.dao.ProductDao;
 import com.naver.reserve.dao.mapper.ProductMapper;
 import com.naver.reserve.dto.request.MoreViewRequestDto;
+import com.naver.reserve.dto.response.Product;
 import com.naver.reserve.dto.response.ProductResponseDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ public class ProductDaoImpl implements ProductDao {
     private ProductMapper productMapper;
 
     @Override
-    public List<ProductResponseDto> getProduct(String categoryId, MoreViewRequestDto moreViewRequestDto) {
+    public List<Product> getProduct(String categoryId, MoreViewRequestDto moreViewRequestDto) {
         return productMapper.selectProduct(categoryId, moreViewRequestDto);
     }
 

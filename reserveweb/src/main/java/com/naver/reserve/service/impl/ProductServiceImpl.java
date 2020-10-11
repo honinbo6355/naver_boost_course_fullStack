@@ -2,8 +2,8 @@ package com.naver.reserve.service.impl;
 
 import com.naver.reserve.dao.ProductDao;
 import com.naver.reserve.dao.impl.ProductDaoImpl;
-import com.naver.reserve.dto.Header;
 import com.naver.reserve.dto.request.MoreViewRequestDto;
+import com.naver.reserve.dto.response.Product;
 import com.naver.reserve.dto.response.ProductResponseDto;
 import com.naver.reserve.service.ProductService;
 import org.springframework.stereotype.Service;
@@ -22,23 +22,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Header getProduct(String categoryId, MoreViewRequestDto moreViewRequestDto) {
-        Header header = new Header();
+    public ProductResponseDto getProduct(String categoryId, MoreViewRequestDto moreViewRequestDto) {
+        ProductResponseDto productResponseDto = new ProductResponseDto();
         try {
-            Map<String, Object> resultMap = new HashMap<>();
-            List<ProductResponseDto> productList = productDao.getProduct(categoryId, moreViewRequestDto);
-            int productCount = productDao.getProductCount(categoryId);
+            productResponseDto.setItems(productDao.getProduct(categoryId, moreViewRequestDto));
+            productResponseDto.setTotalCount(productDao.getProductCount(categoryId));
 
-            resultMap.put("productList", productList);
-            resultMap.put("productCount", productCount);
-
-            header.setData(resultMap);
-            header.OK();
         } catch (Exception e) {
             e.printStackTrace();
-            header.ERROR();
         }
 
-        return header;
+        return productResponseDto;
     }
 }

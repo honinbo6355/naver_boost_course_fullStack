@@ -1,7 +1,7 @@
 package com.naver.reserve.service;
 
-import com.naver.reserve.dto.Header;
+import com.naver.reserve.dto.response.PromotionResponseDto;
 
 public interface PromotionService {
-    Header getPromotion();
+    PromotionResponseDto getPromotion();
 }

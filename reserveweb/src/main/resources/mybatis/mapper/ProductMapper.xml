@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.naver.reserve.dao.mapper.ProductMapper">
-    <select id="selectProduct" resultType="com.naver.reserve.dto.response.ProductResponseDto">
+    <select id="selectProduct" resultType="com.naver.reserve.dto.response.Product">
         SELECT a.id, a.description, a.content, b.id AS displayInfoId, b.place_name, d.save_file_name AS imageUrl
         FROM product AS a LEFT OUTER JOIN display_info AS b
         ON a.id = b.product_id

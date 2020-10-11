@@ -1,0 +1,8 @@
+.group_visual .visual_img .item {
+    width: 414px !important;
+}
+
+.group_visual .visual_img .item .img_promotion {
+    width: 414px;
+    height: 177px;
+}

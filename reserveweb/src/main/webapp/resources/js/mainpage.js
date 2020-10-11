@@ -4,6 +4,7 @@ var mainPage = {
 
 	init : function() {
 		this.getCategories();
+		this.getPromotions();
 		this.getProducts(mainPage.selectedCategoryId);
 	},
 
@@ -42,6 +43,19 @@ var mainPage = {
 		});
 	},
 
+	getPromotions : function() {
+		$.ajax({
+			url: "/api/promotions",
+			type: "GET",
+			dataType: "json"
+		}).done(function(response, textStatus, jqXHR) {
+			console.log("response : " + response);
+			mainPage.drawPromotions(response);
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+			console.log("textStatus : " + textStatus);
+		});
+	},
+
 	// drawMoreViewBtn : function() {
 	// 	var div = document.createElement("div");
 	// 	var button = document.createElement("button");
@@ -62,14 +76,14 @@ var mainPage = {
 	// },
 
 	drawProducts : function(response) {
-		$.each(response.data.productList, function(index, item) {
+		$.each(response.items, function(index, item) {
 			var parentNodeIdx = index%2;
 			$('#itemList').tmpl(item).appendTo($('.lst_event_box:eq(' + parentNodeIdx + ')'));
 		});
 	},
 
 	drawCategories : function(response) {
-		$.each(response.data, function(index, item) {
+		$.each(response.items, function(index, item) {
 			var li = document.createElement("li");
 			var a = document.createElement("a");
 			var span = document.createElement("span");
@@ -117,6 +131,22 @@ var mainPage = {
 
 		mainPage.getProducts(mainPage.selectedCategoryId, viewCount);
 		$("#moreViewBtn").data("view", viewCount+1);
+	},
+
+	drawPromotions : function(response) {
+		$.each(response.items, function(index, item) {
+			var li = document.createElement("li");
+			var img = document.createElement("img");
+
+			li.className = "item";
+
+			img.src = CONTEXT_PATH + "/resources/" + item.productImageUrl;
+			img.className = "img_promotion";
+			// img.className = "img_bg";
+
+			li.append(img);
+			$("#promotionArea").append(li);
+		});
 	}
 };
 
