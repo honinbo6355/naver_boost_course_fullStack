@@ -142,11 +142,22 @@ var mainPage = {
 
 			img.src = CONTEXT_PATH + "/resources/" + item.productImageUrl;
 			img.className = "img_promotion";
-			// img.className = "img_bg";
 
 			li.append(img);
 			$("#promotionArea").append(li);
 		});
+
+		var promotionUl = document.querySelector("#promotionArea");
+		var promotionCnt = 11;
+		var curIndex = 0;
+		setInterval(function() {
+			promotionUl.style.transition = "transform 2s ease-out";
+			promotionUl.style.transform = "translate3d(-" + 414 * (curIndex+1) + "px, 0px, 0px)";
+			curIndex++;
+		}, 2000);
+		// setInterval(() => {
+		// 	imageUl.
+		// }, 200);
 	}
 };
 
