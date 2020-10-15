@@ -6,6 +6,7 @@ import com.naver.reserve.dto.request.MoreViewRequestDto;
 import com.naver.reserve.dto.response.Product;
 import com.naver.reserve.dto.response.ProductResponseDto;
 import com.naver.reserve.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -15,11 +16,8 @@ import java.util.Map;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+    @Autowired
     private ProductDao productDao;
-
-    public ProductServiceImpl(ProductDaoImpl productDao) {
-        this.productDao = productDao;
-    }
 
     @Override
     public ProductResponseDto getProduct(String categoryId, MoreViewRequestDto moreViewRequestDto) {

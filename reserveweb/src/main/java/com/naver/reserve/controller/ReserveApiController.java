@@ -10,6 +10,7 @@ import com.naver.reserve.service.ProductService;
 import com.naver.reserve.service.PromotionService;
 import com.naver.reserve.service.impl.ProductServiceImpl;
 import com.naver.reserve.service.impl.PromotionServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,15 +24,14 @@ import com.naver.reserve.service.impl.CategoryServiceImpl;
 @RequestMapping(path="/api")
 public class ReserveApiController {
 
+	@Autowired
 	private CategoryService categoryService;
-	private ProductService productService;
-	private PromotionService promotionService;
 
-	public ReserveApiController(CategoryServiceImpl categoryService, ProductServiceImpl productService, PromotionServiceImpl promotionService) {
-		this.categoryService = categoryService;
-		this.productService = productService;
-		this.promotionService = promotionService;
-	}
+	@Autowired
+	private ProductService productService;
+
+	@Autowired
+	private PromotionService promotionService;
 
 	@GetMapping("categories")
 	public CategoryResponseDto getCategories() {

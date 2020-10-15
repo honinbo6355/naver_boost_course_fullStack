@@ -18,24 +18,24 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
-@MapperScan(basePackages = {"com.naver.reserve"})
+@MapperScan(basePackages = {"com.naver.reserve.dao.mapper"})
 public class DBConfig {
-	
+
 	@Autowired
 	private ApplicationContext applicationContext;
-	
+
 	@Value("${spring.datasource.driver-class-name}")
 	private String driverClassName;
-	
+
 	@Value("${spring.datasource.url}")
 	private String url;
-	
+
 	@Value("${spring.datasource.username}")
 	private String username;
-	
+
 	@Value("${spring.datasource.password}")
 	private String password;
-	
+
 	@Bean
 	public DataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
@@ -45,14 +45,14 @@ public class DBConfig {
 		dataSource.setPassword(password);
 		return dataSource;
 	}
-	
+
 	@Bean
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource());
         sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mybatis/config/mybatis-config.xml"));
         sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath:mybatis/mapper/*.xml"));
-        
+
         return sqlSessionFactoryBean.getObject();
     }
 
