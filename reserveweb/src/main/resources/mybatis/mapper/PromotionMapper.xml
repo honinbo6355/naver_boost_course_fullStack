@@ -13,5 +13,6 @@
             INNER JOIN file_info AS d
                 ON c.file_id = d.id
         WHERE c.type = 'th'
+        LIMIT 3;
     </select>
 </mapper>

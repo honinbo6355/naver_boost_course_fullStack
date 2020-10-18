@@ -148,12 +148,23 @@ var mainPage = {
 		});
 
 		var promotionUl = document.querySelector("#promotionArea");
-		var promotionCnt = 11;
+		var firstItemClone = promotionUl.firstElementChild.cloneNode(true);
+		promotionUl.append(firstItemClone);
+
+		var promotionCnt = 3;
 		var curIndex = 0;
 		setInterval(function() {
 			promotionUl.style.transition = "transform 2s ease-out";
 			promotionUl.style.transform = "translate3d(-" + 414 * (curIndex+1) + "px, 0px, 0px)";
 			curIndex++;
+
+			if (curIndex === promotionCnt - 1) {
+				setTimeout(function() {
+					promotionUl.style.transition = "0s";
+					promotionUl.style.transform = "translate3d(0px, 0px, 0px)";
+				}, 2001);
+				curIndex = 0;
+			}
 		}, 2000);
 		// setInterval(() => {
 		// 	imageUl.
