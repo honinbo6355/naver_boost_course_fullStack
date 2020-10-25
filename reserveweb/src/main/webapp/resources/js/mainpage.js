@@ -25,6 +25,7 @@ var mainPage = {
 			console.log("response : " + response);
 
 			mainPage.drawProducts(response);
+			mainPage.drawMoreViewBtn(response);
 		}).fail(function( jqXHR, textStatus, errorThrown ) {
 			console.log("textStatus : " + textStatus);
 		});
@@ -82,6 +83,12 @@ var mainPage = {
 		});
 	},
 
+	drawMoreViewBtn : function(response) {
+		if (response.items.length === 0) {
+			$("#moreViewBtn").hide();
+		}
+	},
+
 	drawCategories : function(response) {
 		$.each(response.items, function(index, item) {
 			var li = document.createElement("li");
@@ -120,8 +127,9 @@ var mainPage = {
 		$('.anchor.category').removeClass('active');
 		$(selectedCate).children().addClass('active');
 		$('.lst_event_box').empty();
+		$("#moreViewBtn").data("view", 1).show();
 
-		$("#moreViewBtn").data("view", 1);
+		mainPage.selectedCategoryId = selectedCate.dataset.category;
 		mainPage.setProductCount(count);
 		mainPage.getProducts(selectedCate.dataset.category);
 	},
