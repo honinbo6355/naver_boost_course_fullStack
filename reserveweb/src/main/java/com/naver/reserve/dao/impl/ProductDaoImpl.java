@@ -18,12 +18,12 @@ public class ProductDaoImpl implements ProductDao {
     private ProductMapper productMapper;
 
     @Override
-    public List<Product> getProduct(String categoryId, MoreViewRequestDto moreViewRequestDto) {
+    public List<Product> getProduct(int categoryId, MoreViewRequestDto moreViewRequestDto) {
         return productMapper.selectProduct(categoryId, moreViewRequestDto);
     }
 
     @Override
-    public int getProductCount(String categoryId) {
+    public int getProductCount(int categoryId) {
         return productMapper.selectProductCount(categoryId);
     }
 }

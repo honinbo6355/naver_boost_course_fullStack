@@ -6,5 +6,5 @@ import com.naver.reserve.dto.response.ProductResponseDto;
 import java.util.Map;
 
 public interface ProductService {
-    ProductResponseDto getProduct(String categoryId, MoreViewRequestDto moreViewRequestDto);
+    ProductResponseDto getProduct(int categoryId, MoreViewRequestDto moreViewRequestDto);
 }

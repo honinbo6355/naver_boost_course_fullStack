@@ -1,11 +1,11 @@
 var mainPage = {
 	totalProductCount : 0,
-	selectedCategoryId : '',
+	selectedCategoryId : '0',
 
 	init : function() {
 		this.getCategories();
 		this.getPromotions();
-		this.getProducts(mainPage.selectedCategoryId);
+		this.getProducts(0);
 	},
 
 	eventListener : function() {
@@ -126,18 +126,22 @@ var mainPage = {
 		var promotionUl = document.querySelector("#promotionArea");
 		var promotionCnt = response.items.length;
 
-		$.each(response.items, function(index, item) {
-			var li = document.createElement("li");
-			var img = document.createElement("img");
+//		$.each(response.items, function(index, item) {
+//			var li = document.createElement("li");
+//			var img = document.createElement("img");
+//
+//			li.className = "item";
+//
+//			img.src = CONTEXT_PATH + "/resources/" + item.productImageUrl;
+//			img.className = "img_promotion";
+//
+//			li.append(img);
+//			promotionUl.append(li);
+//		});
 
-			li.className = "item";
-
-			img.src = CONTEXT_PATH + "/resources/" + item.productImageUrl;
-			img.className = "img_promotion";
-
-			li.append(img);
-			promotionUl.append(li);
-		});
+        $.each(response.items, function(index, item) {
+            $('#promotionItem').tmpl(item).appendTo(promotionUl);
+        });
 
 		slideShow();
 

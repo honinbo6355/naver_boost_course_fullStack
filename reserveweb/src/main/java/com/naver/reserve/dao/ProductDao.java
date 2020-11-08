@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ProductDao {
 
-    List<Product> getProduct(String categoryId, MoreViewRequestDto moreViewRequestDto);
+    List<Product> getProduct(int categoryId, MoreViewRequestDto moreViewRequestDto);
 
-    int getProductCount(String categoryId);
+    int getProductCount(int categoryId);
 }

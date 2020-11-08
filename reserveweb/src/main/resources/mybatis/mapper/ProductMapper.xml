@@ -13,7 +13,7 @@
         ON c.file_id = d.id
         <where>
             c.type = "th"
-            <if test="categoryId != null and categoryId != ''">
+            <if test="categoryId != 0">
                 AND category_id = #{categoryId}
             </if>
         </where>
@@ -23,7 +23,7 @@
     <select id="selectProductCount" resultType="int">
         SELECT COUNT(*) AS count
         FROM product
-        <if test="categoryId != null and categoryId != ''">
+        <if test="categoryId != 0">
             GROUP BY category_id
             HAVING category_id = #{categoryId}
         </if>

@@ -20,7 +20,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
-    public ProductResponseDto getProduct(String categoryId, MoreViewRequestDto moreViewRequestDto) {
+    public ProductResponseDto getProduct(int categoryId, MoreViewRequestDto moreViewRequestDto) {
         ProductResponseDto productResponseDto = new ProductResponseDto();
         try {
             productResponseDto.setItems(productDao.getProduct(categoryId, moreViewRequestDto));
