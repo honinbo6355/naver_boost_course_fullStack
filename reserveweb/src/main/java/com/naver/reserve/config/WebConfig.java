@@ -1,5 +1,6 @@
 package com.naver.reserve.config;
 
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -45,7 +46,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public SpringResourceTemplateResolver templateResolver(){ 
 		SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver(); 
 		templateResolver.setApplicationContext(this.applicationContext); 
-		templateResolver.setPrefix("/WEB-INF/views/"); // HTML 파일 위치 
+		templateResolver.setPrefix("/WEB-INF/views/page/"); // HTML 파일 위치
 		templateResolver.setSuffix(".html"); // HTML 확장명 사용 
 		templateResolver.setTemplateMode(TemplateMode.HTML); // HTML5 값은 비권장 됨 
 		templateResolver.setCacheable(false); // 캐시 사용 안함(사용하면 html 수정시 서버 재기동 필요) 
@@ -57,6 +58,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public SpringTemplateEngine templateEngine() {
 	    SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 	    templateEngine.setTemplateResolver(templateResolver());
+	    templateEngine.addDialect(new LayoutDialect());
 	    templateEngine.setTemplateEngineMessageSource(messageSource());
 	    return templateEngine;
 	}

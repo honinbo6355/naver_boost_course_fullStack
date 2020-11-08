@@ -57,25 +57,6 @@ var mainPage = {
 		});
 	},
 
-	// drawMoreViewBtn : function() {
-	// 	var div = document.createElement("div");
-	// 	var button = document.createElement("button");
-	// 	var span = document.createElement("span");
-	//
-	// 	div.className = "more";
-	// 	button.className = "btn";
-	// 	button.dataset.view = 1;
-	// 	button.addEventListener("click", function() {
-	// 		mainPage.moreView(button);
-	// 	});
-	// 	span.textContent = "더보기";
-	//
-	// 	button.append(span);
-	// 	div.append(button);
-	//
-	// 	$('#wrap_event_list').append(div);
-	// },
-
 	drawProducts : function(response) {
 		$.each(response.items, function(index, item) {
 			var parentNodeIdx = index%2;
