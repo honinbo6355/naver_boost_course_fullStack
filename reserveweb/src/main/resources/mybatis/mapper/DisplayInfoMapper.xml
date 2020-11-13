@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.reserve.dao.mapper.DisplayInfoMapper">
+    <select id="selectDisplayInfo" resultType="com.naver.reserve.dto.response.DisplayInfo">
+        SELECT
+            id AS displayInfoId,
+            product_id,
+            opening_hours,
+            place_name,
+            place_lot,
+            place_street,
+            tel AS telephone,
+            homepage,
+            email,
+            create_date,
+            modify_date
+        FROM display_info
+        WHERE id = #{displayInfoId}
+    </select>
+</mapper>

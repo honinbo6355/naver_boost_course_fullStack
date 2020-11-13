@@ -4,7 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.naver.reserve.dao.mapper.PromotionMapper">
     <select id="selectPromotion" resultType="com.naver.reserve.dto.response.Promotion">
-        SELECT a.id, a.product_id, d.save_file_name AS productImageUrl
+        SELECT
+            a.id,
+            a.product_id,
+            d.save_file_name AS productImageUrl
         FROM promotion AS a
             INNER JOIN product AS b
                 ON a.product_id = b.id

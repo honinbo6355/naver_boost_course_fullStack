@@ -2,6 +2,7 @@ package com.naver.reserve.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -12,8 +13,11 @@ public class ViewController {
         return new ModelAndView("mainpage");
     }
 
-    @GetMapping("detail")
-    public ModelAndView detail() {
-        return new ModelAndView("detail");
+    @GetMapping("detail/{displayInfoId}")
+    public ModelAndView detail(@PathVariable("displayInfoId") int displayInfoId) {
+        ModelAndView mav = new ModelAndView("detail");
+        mav.addObject("displayInfoId", displayInfoId);
+
+        return mav;
     }
 }

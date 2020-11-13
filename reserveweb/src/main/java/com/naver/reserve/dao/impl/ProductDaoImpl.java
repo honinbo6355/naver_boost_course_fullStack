@@ -4,6 +4,7 @@ import com.naver.reserve.dao.ProductDao;
 import com.naver.reserve.dao.mapper.ProductMapper;
 import com.naver.reserve.dto.request.MoreViewRequestDto;
 import com.naver.reserve.dto.response.Product;
+import com.naver.reserve.dto.response.ProductImage;
 import com.naver.reserve.dto.response.ProductResponseDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;

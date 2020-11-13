@@ -1,5 +1,7 @@
 package com.naver.reserve.dao;
 
-public interface DisplayInfoDao {
+import com.naver.reserve.dto.response.DisplayInfo;
 
+public interface DisplayInfoDao {
+    DisplayInfo getDisplayInfo(int displayInfoId);
 }
