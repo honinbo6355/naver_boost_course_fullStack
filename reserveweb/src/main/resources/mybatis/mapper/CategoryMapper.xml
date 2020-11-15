@@ -8,8 +8,9 @@
 			a.id,
 			a.name,
 			count(*) as count
-		FROM category a INNER JOIN product b
-		ON a.id = b.category_id
+		FROM category a
+			INNER JOIN product b
+				ON a.id = b.category_id
 		GROUP BY a.id
 	</select>
 </mapper>

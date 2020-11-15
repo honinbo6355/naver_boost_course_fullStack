@@ -1,12 +1,11 @@
 package com.naver.reserve.service.impl;
 
 import com.naver.reserve.dao.DisplayInfoDao;
+import com.naver.reserve.dao.DisplayInfoImageDao;
 import com.naver.reserve.dao.ProductDao;
 import com.naver.reserve.dao.ProductImageDao;
 import com.naver.reserve.dto.request.MoreViewRequestDto;
-import com.naver.reserve.dto.response.DisplayInfo;
-import com.naver.reserve.dto.response.DisplayInfoResponse;
-import com.naver.reserve.dto.response.ProductResponseDto;
+import com.naver.reserve.dto.response.*;
 import com.naver.reserve.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +21,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductImageDao productImageDao;
+
+    @Autowired
+    private DisplayInfoImageDao displayInfoImageDao;
 
     @Override
     public ProductResponseDto getProduct(int categoryId, MoreViewRequestDto moreViewRequestDto) {
@@ -43,7 +45,8 @@ public class ProductServiceImpl implements ProductService {
         try {
             DisplayInfo displayInfo = displayInfoDao.getDisplayInfo(displayInfoId);
             int productId = displayInfo.getProductId();
-            productImageDao.getProductImage(productId);
+            ProductImage productImage = productImageDao.getProductImage(productId);
+            DisplayInfoImage displayInfoImage = displayInfoImageDao.getDisplayInfoImage(displayInfoId);
         } catch (Exception e) {
             e.printStackTrace();
         }

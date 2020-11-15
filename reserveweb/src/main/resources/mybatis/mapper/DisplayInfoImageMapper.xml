@@ -2,24 +2,23 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.naver.reserve.dao.mapper.ProductImageMapper">
-    <select id="selectProductImage" resultType="com.naver.reserve.dto.response.ProductImage">
+<mapper namespace="com.naver.reserve.dao.mapper.DisplayInfoImageMapper">
+    <select id="selectDisplayInfoImage" resultType="com.naver.reserve.dto.response.DisplayInfoImage">
         SELECT
-            b.product_id,
-            b.id AS productImageId,
-            b.type,
-            b.file_id AS fileInfoId,
+            b.id AS displayInfoImageid,
+            b.display_info_id,
+            b.file_id,
             c.file_name,
             c.save_file_name,
             c.content_type,
             c.delete_flag,
             c.create_date,
             c.modify_date
-        FROM product a
-            INNER JOIN product_image b
-                ON a.id = b.product_id
+        FROM display_info a
+            INNER JOIN display_info_image b
+                ON a.id = b.display_info_id
             INNER JOIN file_info c
                 ON b.file_id = c.id
-        WHERE b.type = 'ma' AND a.id = #{productId}
+        WHERE a.id = #{displayInfoId};
     </select>
 </mapper>

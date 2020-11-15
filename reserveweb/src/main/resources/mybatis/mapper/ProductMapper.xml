@@ -11,12 +11,13 @@
             b.id AS displayInfoId,
             b.place_name,
             d.save_file_name AS imageUrl
-        FROM product AS a LEFT OUTER JOIN display_info AS b
-        ON a.id = b.product_id
-        LEFT OUTER JOIN product_image AS c
-        ON a.id = c.product_id
-        INNER JOIN file_info d
-        ON c.file_id = d.id
+        FROM product AS a
+            LEFT OUTER JOIN display_info AS b
+                ON a.id = b.product_id
+            LEFT OUTER JOIN product_image AS c
+                ON a.id = c.product_id
+            INNER JOIN file_info d
+                ON c.file_id = d.id
         <where>
             c.type = "th"
             <if test="categoryId != 0">
