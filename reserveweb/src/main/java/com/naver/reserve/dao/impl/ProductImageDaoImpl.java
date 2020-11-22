@@ -6,6 +6,8 @@ import com.naver.reserve.dto.response.ProductImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class ProductImageDaoImpl implements ProductImageDao {
 
@@ -13,7 +15,7 @@ public class ProductImageDaoImpl implements ProductImageDao {
     private ProductImageMapper productImageMapper;
 
     @Override
-    public ProductImage getProductImage(int productId) {
-        return productImageMapper.selectProductImage(productId);
+    public List<ProductImage> getProductImages(int productId) {
+        return productImageMapper.selectProductImages(productId);
     }
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.reserve.dao.mapper.CommentMapper">
+
+    <resultMap id="commentResultMap" type="com.naver.reserve.dto.response.Comment">
+        <id property="commentId" column="comment_id" />
+        <result property="productId" column="product_id" />
+        <result property="reservationInfoId" column="comment_reservation_info_id" />
+        <result property="score" column="score" />
+        <result property="comment" column="comment" />
+        <result property="reservationName" column="reservation_name" />
+        <result property="reservationTelephone" column="reservation_tel" />
+        <result property="reservationEmail" column="reservation_email" />
+        <result property="reservationDate" column="reservation_date" />
+        <result property="createDate" column="create_date" />
+        <result property="modifyDate" column="modify_date" />
+        <collection property="commentImages" ofType="com.naver.reserve.dto.response.CommentImage">
+            <id property="imageId" column="image_id" />
+            <result property="reservationInfoId" column="comment_image_reservation_info_id" />
+            <result property="reservationUserCommentId" column="reservation_user_comment_id" />
+            <result property="fileId" column="file_id" />
+            <result property="fileName" column="file_name" />
+            <result property="saveFileName" column="save_file_name" />
+            <result property="contentType" column="content_type" />
+            <result property="deleteFlag" column="delete_flag" />
+            <result property="createDate" column="create_date" />
+            <result property="modifyDate" column="modify_date" />
+        </collection>
+    </resultMap>
+
+    <select id="selectComment" resultMap="commentResultMap">
+        SELECT
+            a.id AS comment_id,
+            a.product_id,
+            a.reservation_info_id AS comment_reservation_info_id,
+            a.score,
+            a.comment,
+            b.reservation_name,
+            b.reservation_tel,
+            b.reservation_email,
+            b.reservation_date,
+            a.create_date,
+            a.modify_date,
+            c.id AS image_id,
+            c.reservation_info_id AS comment_image_reservation_info_id,
+            c.reservation_user_comment_id,
+            d.id AS file_id,
+            d.file_name,
+            d.save_file_name,
+            d.content_type,
+            d.delete_flag,
+            d.create_date,
+            d.modify_date
+        FROM reservation_user_comment a
+            INNER JOIN reservation_info b
+                ON a.reservation_info_id = b.id
+            LEFT OUTER JOIN reservation_user_comment_image c
+                ON a.id = c.reservation_user_comment_id
+            LEFT OUTER JOIN file_info d
+                ON c.file_id = d.id
+        WHERE a.product_id = #{productId};
+    </select>
+</mapper>

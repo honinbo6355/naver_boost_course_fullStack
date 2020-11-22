@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 @ToString
 public class Comment extends SystemDate {
     private String comment;
-    private int commendId;
+    private int commentId;
     private CommentImage commentImages;
     private int productId;
-    private LocalDateTime reservationDate;
+    private String reservationDate;
     private String reservationEmail;
     private int reservationInfoId;
     private String reservationName;
