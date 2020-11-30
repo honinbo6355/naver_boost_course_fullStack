@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface CommentDao {
     List<Comment> getComment(int productId);
+
+    double getAverageScore(int productId);
 }

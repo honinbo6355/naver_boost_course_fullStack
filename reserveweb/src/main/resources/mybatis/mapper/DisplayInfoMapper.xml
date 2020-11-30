@@ -5,18 +5,27 @@
 <mapper namespace="com.naver.reserve.dao.mapper.DisplayInfoMapper">
     <select id="selectDisplayInfo" resultType="com.naver.reserve.dto.response.DisplayInfo">
         SELECT
-            id AS displayInfoId,
-            product_id,
-            opening_hours,
-            place_name,
-            place_lot,
-            place_street,
-            tel AS telephone,
-            homepage,
-            email,
-            create_date,
-            modify_date
-        FROM display_info
-        WHERE id = #{displayInfoId}
+            a.product_id,
+            b.category_id,
+            a.id AS displayInfoId,
+            c.name AS categoryName,
+            b.description AS productDescription,
+            b.content AS productContent,
+            b.event AS productEvent,
+            a.opening_hours,
+            a.place_name,
+            a.place_lot,
+            a.place_street,
+            a.tel AS telephone,
+            a.homepage,
+            a.email,
+            a.create_date,
+            a.modify_date
+        FROM display_info a
+            INNER JOIN product b
+                ON a.product_id = b.id
+            INNER JOIN category c
+                ON b.category_id = c.id
+        WHERE a.id = #{displayInfoId}
     </select>
 </mapper>

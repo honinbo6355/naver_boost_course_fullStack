@@ -62,4 +62,10 @@
                 ON c.file_id = d.id
         WHERE a.product_id = #{productId};
     </select>
+
+    <select id="selectAverageScore" resultType="double">
+        SELECT ROUND(AVG(score), 1)
+        FROM reservation_user_comment
+        WHERE product_id = #{productId};
+    </select>
 </mapper>

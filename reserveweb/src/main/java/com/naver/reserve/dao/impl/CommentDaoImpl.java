@@ -18,4 +18,9 @@ public class CommentDaoImpl implements CommentDao {
     public List<Comment> getComment(int productId) {
         return commentMapper.selectComment(productId);
     }
+
+    @Override
+    public double getAverageScore(int productId) {
+        return commentMapper.selectAverageScore(productId);
+    }
 }

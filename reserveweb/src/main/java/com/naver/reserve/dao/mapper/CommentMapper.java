@@ -10,4 +10,6 @@ import java.util.List;
 public interface CommentMapper {
 
     List<Comment> selectComment(@Param("productId") int productId);
+
+    double selectAverageScore(@Param("productId") int productId);
 }

@@ -60,7 +60,7 @@ var mainPage = {
 	drawProducts : function(response) {
 		$.each(response.items, function(index, item) {
 			var parentNodeIdx = index%2;
-			$('#itemList').tmpl(item).appendTo($('.lst_event_box:eq(' + parentNodeIdx + ')'));
+			$('#productItem').tmpl(item).appendTo($('.lst_event_box:eq(' + parentNodeIdx + ')'));
 		});
 	},
 
