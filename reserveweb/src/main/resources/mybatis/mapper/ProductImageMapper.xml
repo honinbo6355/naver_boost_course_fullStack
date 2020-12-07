@@ -20,6 +20,7 @@
                 ON a.id = b.product_id
             INNER JOIN file_info c
                 ON b.file_id = c.id
-        WHERE b.type = 'ma' AND a.id = #{productId}
+        WHERE b.type IN ("ma", "et") AND a.id = #{productId}
+        ORDER BY b.type DESC
     </select>
 </mapper>

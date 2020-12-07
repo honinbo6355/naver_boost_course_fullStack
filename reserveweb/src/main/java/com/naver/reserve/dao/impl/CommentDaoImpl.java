@@ -20,7 +20,7 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public double getAverageScore(int productId) {
+    public Double getAverageScore(int productId) {
         return commentMapper.selectAverageScore(productId);
     }
 }

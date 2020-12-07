@@ -22,14 +22,14 @@
                     <div class="pagination">
                         <div class="bg_pagination"></div>
                         <div class="figure_pagination">
-                            <span class="num">1</span>
-                            <span class="num off">/ <span>2</span></span>
+                            <span id="currentPage" class="num">1</span>
+                            <span class="num off">/ <span id="totalPage">1</span></span>
                         </div>
                     </div>
                     <div class="group_visual">
                         <div>
                             <div class="container_visual" style="width: 414px;">
-                                <ul class="visual_img detail_swipe">
+                                <ul class="visual_img detail_swipe" id="productImageList">
                                     <!--
                                     <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" src=""> <span class="img_bg"></span>
                                         <div class="visual_txt">
@@ -66,7 +66,7 @@
                                     -->
                                 </ul>
                             </div>
-                            <div class="prev">
+                            <div id="prevNav" class="prev" style="display:none;">
                                 <div class="prev_inn">
                                     <a href="#" class="btn_prev" title="이전">
                                         <!-- [D] 첫 이미지 이면 off 클래스 추가 -->
@@ -74,7 +74,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="nxt">
+                            <div id="nextNav" class="nxt" style="display:none;">
                                 <div class="nxt_inn">
                                     <a href="#" class="btn_nxt" title="다음">
                                         <i class="spr_book2 ico_arr6_rt"></i>
@@ -237,8 +237,6 @@
         <div id="photoviwer"></div>
     </th:block>
     <th:block layout:fragment="script">
-        <script type="text/javascript" th:src="@{/resources/js/detail.js}"></script>
-
         <script type="text/x-jquery-tmpl" id="productImageItem">
             <li class="item" style="width: 414px;"> <img alt="" class="img_thumb" th:src="@{/resources/${saveFileName}}"> <span class="img_bg"></span>
                 <div class="visual_txt">
@@ -249,5 +247,6 @@
                 </div>
             </li>
         </script>
+        <script type="text/javascript" th:src="@{/resources/js/detail.js}"></script>
     </th:block>
 </html>

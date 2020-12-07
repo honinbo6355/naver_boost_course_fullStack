@@ -54,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
             DisplayInfoImage displayInfoImage = displayInfoImageDao.getDisplayInfoImage(displayInfoId);
             List<Comment> comments = commentDao.getComment(productId);
             List<ProductPrice> productPrices = productPriceDao.getProductPrice(productId);
-            double averageScore = commentDao.getAverageScore(productId);
+            Double averageScore = commentDao.getAverageScore(productId);
 
             displayInfoResponse.setDisplayInfo(displayInfo);
             displayInfoResponse.setProductImages(productImages);

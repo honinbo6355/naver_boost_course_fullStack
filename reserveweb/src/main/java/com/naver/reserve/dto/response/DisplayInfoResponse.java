@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @ToString
 public class DisplayInfoResponse {
-    private double averageScore;
+    private Double averageScore;
     private List<Comment> comments;
     private DisplayInfo displayInfo;
     private DisplayInfoImage displayInfoImage;

@@ -34,7 +34,7 @@ public class ProductServiceTest {
 
     @Test
     public void 상품_상세_조회() throws Exception {
-        MvcResult mvcResult = mockMvc.perform(get("/api/products/" + 1)).andReturn();
+        MvcResult mvcResult = mockMvc.perform(get("/api/products/" + 2)).andReturn();
         System.out.println(mvcResult.getResponse().getContentAsString());
     }
 }

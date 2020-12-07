@@ -11,5 +11,5 @@ public interface CommentMapper {
 
     List<Comment> selectComment(@Param("productId") int productId);
 
-    double selectAverageScore(@Param("productId") int productId);
+    Double selectAverageScore(@Param("productId") int productId);
 }
