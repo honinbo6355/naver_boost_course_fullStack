@@ -60,7 +60,7 @@ var mainPage = {
 	drawProducts : function(response) {
 		$.each(response.items, function(index, item) {
 			var parentNodeIdx = index%2;
-			$('#productItem').tmpl(item).appendTo($('.lst_event_box:eq(' + parentNodeIdx + ')'));
+			$('#productItemTmpl').tmpl(item).appendTo($('.lst_event_box:eq(' + parentNodeIdx + ')'));
 		});
 	},
 
@@ -128,7 +128,7 @@ var mainPage = {
 
         $.each(response.items, function(index, item) {
             item.productImageUrl = CONTEXT_PATH + "/resources/" + item.productImageUrl;
-            $('#promotionItem').tmpl(item).appendTo(promotionUl);
+            $('#promotionItemTmpl').tmpl(item).appendTo(promotionUl);
         });
 
 		slideShow();

@@ -139,7 +139,7 @@
     </th:block>
 
     <th:block layout:fragment="script">
-        <script type="text/x-jquery-tmpl" id="promotionItem">
+        <script type="text/x-jquery-tmpl" id="promotionItemTmpl">
             <li class="item" style="background-image: url(${productImageUrl})">
                 <a href="#"> <span class="img_btm_border"></span> <span class="img_right_border"></span> <span class="img_bg_gra"></span>
                     <div class="event_txt">
@@ -151,7 +151,7 @@
             </li>
         </script>
 
-        <script type="text/x-jquery-tmpl" id="productItem">
+        <script type="text/x-jquery-tmpl" id="productItemTmpl">
             <li class="item">
                 <a th:href="@{/detail/${displayInfoId}}" class="item_book">
                     <div class="item_preview">
