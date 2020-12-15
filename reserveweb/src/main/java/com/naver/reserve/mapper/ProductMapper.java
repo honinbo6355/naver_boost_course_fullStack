@@ -1,4 +1,4 @@
-package com.naver.reserve.dao.mapper;
+package com.naver.reserve.mapper;
 
 import com.naver.reserve.dto.request.MoreViewRequestDto;
 import com.naver.reserve.dto.response.Product;

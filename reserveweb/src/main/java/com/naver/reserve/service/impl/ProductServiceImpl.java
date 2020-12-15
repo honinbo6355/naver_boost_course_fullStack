@@ -1,8 +1,8 @@
 package com.naver.reserve.service.impl;
 
-import com.naver.reserve.dao.*;
 import com.naver.reserve.dto.request.MoreViewRequestDto;
 import com.naver.reserve.dto.response.*;
+import com.naver.reserve.mapper.*;
 import com.naver.reserve.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,29 +13,29 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private ProductDao productDao;
+    private ProductMapper productMapper;
 
     @Autowired
-    private DisplayInfoDao displayInfoDao;
+    private DisplayInfoMapper displayInfoMapper;
 
     @Autowired
-    private ProductImageDao productImageDao;
+    private ProductImageMapper productImageMapper;
 
     @Autowired
-    private DisplayInfoImageDao displayInfoImageDao;
+    private DisplayInfoImageMapper displayInfoImageMapper;
 
     @Autowired
-    private CommentDao commentDao;
+    private CommentMapper commentMapper;
 
     @Autowired
-    private ProductPriceDao productPriceDao;
+    private ProductPriceMapper productPriceMapper;
 
     @Override
     public ProductResponseDto getProduct(int categoryId, MoreViewRequestDto moreViewRequestDto) {
         ProductResponseDto productResponseDto = new ProductResponseDto();
         try {
-            productResponseDto.setItems(productDao.getProduct(categoryId, moreViewRequestDto));
-            productResponseDto.setTotalCount(productDao.getProductCount(categoryId));
+            productResponseDto.setItems(productMapper.selectProduct(categoryId, moreViewRequestDto));
+            productResponseDto.setTotalCount(productMapper.selectProductCount(categoryId));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,13 +48,13 @@ public class ProductServiceImpl implements ProductService {
     public DisplayInfoResponse getProductDetail(int displayInfoId) {
         DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
         try {
-            DisplayInfo displayInfo = displayInfoDao.getDisplayInfo(displayInfoId);
+            DisplayInfo displayInfo = displayInfoMapper.selectDisplayInfo(displayInfoId);
             int productId = displayInfo.getProductId();
-            List<ProductImage> productImages = productImageDao.getProductImages(productId);
-            DisplayInfoImage displayInfoImage = displayInfoImageDao.getDisplayInfoImage(displayInfoId);
-            List<Comment> comments = commentDao.getComment(productId);
-            List<ProductPrice> productPrices = productPriceDao.getProductPrice(productId);
-            Double averageScore = commentDao.getAverageScore(productId);
+            List<ProductImage> productImages = productImageMapper.selectProductImages(productId);
+            DisplayInfoImage displayInfoImage = displayInfoImageMapper.selectDisplayInfoImage(displayInfoId);
+            List<Comment> comments = commentMapper.selectComment(productId);
+            List<ProductPrice> productPrices = productPriceMapper.selectProductPrice(productId);
+            Double averageScore = commentMapper.selectAverageScore(productId);
 
             displayInfoResponse.setDisplayInfo(displayInfo);
             displayInfoResponse.setProductImages(productImages);

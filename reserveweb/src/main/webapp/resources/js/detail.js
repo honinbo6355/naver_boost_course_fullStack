@@ -7,7 +7,9 @@
         curImgIdx : 0,
         slideWidth : 414,
         slideSpeed : 300
-    }
+    };
+
+    let displayInfoObj = {};
 
     const detailController = {
         init : function() {
@@ -25,6 +27,7 @@
             }).done(function(response, textStatus, jqXHR) {
                 console.log("response : " + response);
                 productImageObj.productImages = response.productImages;
+                displayInfoObj = response.displayInfo;
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 console.log("textStatus : " + textStatus);
             });
@@ -45,7 +48,8 @@
         },
         render : function() {
             $.each(productImageObj.productImages, function(index, item) {
-                $("#productImageItemTmpl").tmpl(item).appendTo(this.$ul);
+                const resultItem = $.extend(true, {}, item, {"title" : displayInfoObj.productDescription});
+                $("#productImageItemTmpl").tmpl(resultItem).appendTo(this.$ul);
             }.bind(this));
 
             if (productImageObj.productImages.length > 1) {

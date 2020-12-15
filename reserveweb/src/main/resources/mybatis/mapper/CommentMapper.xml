@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.naver.reserve.dao.mapper.CommentMapper">
+<mapper namespace="com.naver.reserve.mapper.CommentMapper">
 
     <resultMap id="commentResultMap" type="com.naver.reserve.dto.response.Comment">
         <id property="commentId" column="comment_id" />

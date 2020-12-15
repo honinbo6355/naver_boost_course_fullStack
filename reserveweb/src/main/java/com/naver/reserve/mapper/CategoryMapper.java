@@ -1,4 +1,4 @@
-package com.naver.reserve.dao.mapper;
+package com.naver.reserve.mapper;
 
 import java.util.List;
 

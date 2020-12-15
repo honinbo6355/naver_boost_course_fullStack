@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.naver.reserve.dao.mapper.ProductMapper">
+<mapper namespace="com.naver.reserve.mapper.ProductMapper">
     <select id="selectProduct" resultType="com.naver.reserve.dto.response.Product">
         SELECT
             a.id,

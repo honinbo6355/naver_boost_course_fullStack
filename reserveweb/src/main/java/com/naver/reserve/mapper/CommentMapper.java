@@ -1,4 +1,4 @@
-package com.naver.reserve.dao.mapper;
+package com.naver.reserve.mapper;
 
 import com.naver.reserve.dto.response.Comment;
 import org.apache.ibatis.annotations.Mapper;

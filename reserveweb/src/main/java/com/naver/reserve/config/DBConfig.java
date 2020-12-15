@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
-@MapperScan(basePackages = {"com.naver.reserve.dao.mapper"})
+@MapperScan(basePackages = {"com.naver.reserve.mapper"})
 public class DBConfig {
 
 	@Autowired
