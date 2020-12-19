@@ -127,8 +127,8 @@ var mainPage = {
 		var promotionCnt = response.items.length;
 
         $.each(response.items, function(index, item) {
-            item.productImageUrl = CONTEXT_PATH + "/resources/" + item.productImageUrl;
-            $('#promotionItemTmpl').tmpl(item).appendTo(promotionUl);
+            var resultProductImageUrl = "/resources/" + item.productImageUrl;
+            $('#promotionItemTmpl').tmpl({resultProductImageUrl}).appendTo(promotionUl);
         });
 
 		slideShow();

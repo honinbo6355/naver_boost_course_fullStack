@@ -10,13 +10,16 @@
     };
 
     let displayInfoObj = {};
+    let commentArr = [];
+    let averageScore = 0.0;
 
     const detailController = {
         init : function() {
-            $('.header').addClass('fade');
-
             this.getProductDetail();
+
             productImageView.init();
+            displayInfoView.init();
+            commentView.init();
         },
         getProductDetail : function() {
             $.ajax({
@@ -28,6 +31,8 @@
                 console.log("response : " + response);
                 productImageObj.productImages = response.productImages;
                 displayInfoObj = response.displayInfo;
+                commentArr = response.comments;
+                averageScore = response.averageScore;
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 console.log("textStatus : " + textStatus);
             });
@@ -37,6 +42,7 @@
     const productImageView = {
         init : function() {
             this.cacheDom();
+            this.bindEvent();
             this.render();
         },
         cacheDom : function() {
@@ -45,6 +51,10 @@
             this.$totalPage = $("#totalPage");
             this.$prevNav = $("#prevNav");
             this.$nextNav = $("#nextNav");
+        },
+        bindEvent : function() {
+            this.$prevNav.on("click", this.prevSlideClick.bind(this));
+            this.$nextNav.on("click", this.nextSlideClick.bind(this));
         },
         render : function() {
             $.each(productImageObj.productImages, function(index, item) {
@@ -60,12 +70,12 @@
                 this.$ul.append($firstNodeClone); // 맨 뒤에 복사한 첫번째 노드 붙이기
 
                 this.$ul.css("transform", "translate3d(-" + productImageObj.slideWidth * (productImageObj.curImgIdx+1) + "px, 0px, 0px)"); // 최초에는 translate3d(-414px, 0px, 0px)
-                this.$prevNav.on("click", this.prevSlide.bind(this)).show();
-                this.$nextNav.on("click", this.nextSlide.bind(this)).show();
+                this.$prevNav.show();
+                this.$nextNav.show();
                 this.$totalPage.text(productImageObj.productImages.length);
             }
         },
-        prevSlide : function() {
+        prevSlideClick : function() {
             if (productImageObj.curImgIdx >= 0) {
                 this.$ul.css("transition", "transform 0.3ms ease-out");
                 this.$ul.css("transform", "translate3d(-" + (productImageObj.slideWidth * productImageObj.curImgIdx) + "px, 0px, 0px)");
@@ -80,7 +90,7 @@
             productImageObj.curImgIdx--;
             this.$currentPage.text(productImageObj.curImgIdx+1);
         },
-        nextSlide : function() {
+        nextSlideClick : function() {
             if (productImageObj.curImgIdx <= productImageObj.productImages.length - 1) {
                 this.$ul.css("transition", "transform 0.3ms ease-out");
                 this.$ul.css("transform", "translate3d(-" + (productImageObj.slideWidth * (productImageObj.curImgIdx+2)) + "px, 0px, 0px)");
@@ -97,6 +107,56 @@
         }
     };
 
+    const displayInfoView = {
+        init : function() {
+            this.cacheDom();
+            this.bindEvent();
+            this.render();
+        },
+        cacheDom : function() {
+            this.$productDscContainer = $("#productDscContainer");
+            this.$productDsc = $("#productDsc");
+            this.$dscOpenBtn = $("#dscOpenBtn");
+            this.$dscCloseBtn = $("#dscCloseBtn");
+        },
+        bindEvent : function() {
+            this.$dscOpenBtn.on("click", this.dscOpenBtnClick.bind(this));
+            this.$dscCloseBtn.on("click", this.dscCloseBtnClick.bind(this));
+        },
+        render : function() {
+            this.$productDsc.html(displayInfoObj.productContent);
+        },
+        dscOpenBtnClick : function() {
+            this.$dscOpenBtn.hide();
+            this.$dscCloseBtn.show();
+            this.$productDscContainer.removeClass("close3");
+        },
+        dscCloseBtnClick : function() {
+            this.$dscCloseBtn.hide();
+            this.$dscOpenBtn.show();
+            this.$productDscContainer.addClass("close3");
+        }
+    };
+
+    const commentView = {
+        init : function() {
+            this.cacheDom();
+            this.render();
+        },
+        cacheDom : function() {
+            this.$scoreGraph = $("#scoreGraph");
+            this.$averageScore = $("#averageScore");
+            this.$totalCommentCnt = $("#totalCommentCnt");
+            this.$reviewUl = $("#reviewUl");
+        },
+        render : function() {
+            $.each(commentArr, function(index, item) {
+                $("#commentItemTmpl").tmpl(item).appendTo(this.$reviewUl);
+            }.bind(this));
+        }
+    }
+
+    $('.header').addClass('fade');
     detailController.init();
 })();
 
