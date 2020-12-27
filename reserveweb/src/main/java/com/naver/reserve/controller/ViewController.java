@@ -20,4 +20,12 @@ public class ViewController {
 
         return mav;
     }
+
+    @GetMapping("review/{displayInfoId}")
+    public ModelAndView review(@PathVariable("displayInfoId") int displayInfoId) {
+        ModelAndView mav = new ModelAndView("review");
+        mav.addObject("displayInfoId", displayInfoId);
+
+        return mav;
+    }
 }

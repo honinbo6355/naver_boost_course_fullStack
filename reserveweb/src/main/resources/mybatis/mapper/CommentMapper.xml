@@ -60,11 +60,12 @@
                 ON a.id = c.reservation_user_comment_id
             LEFT OUTER JOIN file_info d
                 ON c.file_id = d.id
-        WHERE a.product_id = #{productId};
+        WHERE a.product_id = #{productId}
+        ORDER BY b.reservation_date DESC;
     </select>
 
     <select id="selectAverageScore" resultType="Double">
-        SELECT ROUND(AVG(score), 1)
+        SELECT IFNULL(ROUND(AVG(score), 1), 0.0)
         FROM reservation_user_comment
         WHERE product_id = #{productId};
     </select>

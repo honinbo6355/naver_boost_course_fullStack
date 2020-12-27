@@ -2,6 +2,8 @@
 
     "use strict";
 
+    const displayInfoId = $('#displayInfoId').val();
+
     const productImageObj = {
         productImages : [],
         curImgIdx : 0,
@@ -23,7 +25,7 @@
         },
         getProductDetail : function() {
             $.ajax({
-                url : "/api/products/" + $('#displayInfoId').val(),
+                url : "/api/products/" + displayInfoId,
                 type : "GET",
                 dataType : "json",
                 async : false
@@ -147,12 +149,34 @@
             this.$scoreGraph = $("#scoreGraph");
             this.$averageScore = $("#averageScore");
             this.$totalCommentCnt = $("#totalCommentCnt");
-            this.$reviewUl = $("#reviewUl");
+            this.$reviewContainer = $("#reviewContainer");
         },
         render : function() {
+            this.$scoreGraph.css("width", (averageScore/5.0) * 100);
+            this.$averageScore.html(averageScore.toFixed(1));
+            this.$totalCommentCnt.html(commentArr.length + "건");
+
+            if (commentArr.length <= 0) {
+                this.$reviewContainer.css("text-align", "center").html("리뷰가 존재하지 않습니다.");
+                return;
+            }
+
+            this.$reviewContainer.append($("<ul>").attr("id", "reviewUl").attr("class", "list_short_review"));
             $.each(commentArr, function(index, item) {
-                $("#commentItemTmpl").tmpl(item).appendTo(this.$reviewUl);
+                if (index >= 3) { // 3개를 초과할 경우 return
+                    return false;
+                }
+
+                var resultItem = $.extend(true, {}, item, {
+                    "score": item.score.toFixed(1),
+                    "reservationDate": getDateStr_yyyymmdd(item.reservationDate)
+                });
+                $("#commentItemTmpl").tmpl(resultItem).appendTo($("#reviewUl"));
             }.bind(this));
+
+            if (commentArr.length > 3) {
+                $("#reviewMore").attr("href", "/review/" + displayInfoId).show();
+            }
         }
     }
 
