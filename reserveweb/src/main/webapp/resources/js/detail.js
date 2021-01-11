@@ -172,7 +172,7 @@
                     "reservationDate": getDateStr_yyyymmdd(item.reservationDate)
                 });
                 $("#commentItemTmpl").tmpl(resultItem).appendTo($("#reviewUl"));
-            }.bind(this));
+            });
 
             if (commentArr.length > 3) {
                 $("#reviewMore").attr("href", "/review/" + displayInfoId).show();

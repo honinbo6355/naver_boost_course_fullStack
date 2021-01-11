@@ -6,6 +6,8 @@
         layout:decorator="../layout/default_layout">
 
     <th:block layout:fragment="content">
+        <input type="hidden" id="displayInfoId" th:value="${displayInfoId}">
+
         <div class="ct">
             <div class="wrap_review_list">
                 <div class="review_header">
@@ -34,5 +36,8 @@
                 </div>
             </div>
         </div>
+    </th:block>
+    <th:block layout:fragment="script">
+        <script type="text/javascript" th:src="@{/resources/js/review.js}"></script>
     </th:block>
 </html>
