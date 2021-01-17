@@ -5,7 +5,7 @@
 <mapper namespace="com.naver.reserve.mapper.DisplayInfoImageMapper">
     <select id="selectDisplayInfoImage" resultType="com.naver.reserve.dto.response.DisplayInfoImage">
         SELECT
-            b.id AS displayInfoImageid,
+            b.id AS displayInfoImageId,
             b.display_info_id,
             b.file_id,
             c.file_name,

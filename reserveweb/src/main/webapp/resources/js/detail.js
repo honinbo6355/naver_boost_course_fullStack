@@ -12,6 +12,7 @@
     };
 
     let displayInfoObj = {};
+    let displayInfoImage = {};
     let commentArr = [];
     let averageScore = 0.0;
 
@@ -22,6 +23,7 @@
             productImageView.init();
             displayInfoView.init();
             commentView.init();
+            detailInfoView.init();
         },
         getProductDetail : function() {
             $.ajax({
@@ -33,6 +35,7 @@
                 console.log("response : " + response);
                 productImageObj.productImages = response.productImages;
                 displayInfoObj = response.displayInfo;
+                displayInfoImage = response.displayInfoImage;
                 commentArr = response.comments;
                 averageScore = response.averageScore;
             }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -178,7 +181,44 @@
                 $("#reviewMore").attr("href", "/review/" + displayInfoId).show();
             }
         }
-    }
+    };
+
+    const detailInfoView = {
+        init : function() {
+            this.cacheDom();
+            this.bindEvent();
+            this.render();
+        },
+        cacheDom : function() {
+            this.$detailInfoLis = $("#detailInfoTab > li");
+            this.$productIntro = $("#productIntro");
+            this.$detailInfoDiv = $("#detailInfoDiv");
+            this.$detailLocationDiv = $("#detailLocationDiv");
+        },
+        bindEvent : function() {
+            this.$detailInfoLis.on('click', this.clickDetailInfoLi.bind(this));
+        },
+        render : function() {
+            this.$productIntro.html(displayInfoObj.productContent);
+        },
+        clickDetailInfoLi : function() {
+            var $clickElement = $(event.currentTarget);
+
+            this.$detailInfoLis.children().removeClass("active");
+            $clickElement.children().addClass("active");
+
+            switch ($clickElement.attr("id")) {
+                case "detailInfo" :
+                    this.$detailInfoDiv.removeClass("hide");
+                    this.$detailLocationDiv.addClass("hide");
+                    break;
+                case "detailLocation" :
+                    this.$detailInfoDiv.addClass("hide");
+                    this.$detailLocationDiv.removeClass("hide");
+                    break;
+            }
+        }
+    };
 
     $('.header').addClass('fade');
     detailController.init();
