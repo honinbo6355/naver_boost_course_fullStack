@@ -194,12 +194,22 @@
             this.$productIntro = $("#productIntro");
             this.$detailInfoDiv = $("#detailInfoDiv");
             this.$detailLocationDiv = $("#detailLocationDiv");
+            this.$locationMapImg = $("#locationMapImg");
+            this.$placeStreet = $("#placeStreet");
+            this.$placeLot = $("#placeLot");
+            this.$placeName = $("#placeName");
+            this.$telephone = $("#telephone");
         },
         bindEvent : function() {
             this.$detailInfoLis.on('click', this.clickDetailInfoLi.bind(this));
         },
         render : function() {
             this.$productIntro.html(displayInfoObj.productContent);
+            this.$locationMapImg.attr("src", "/resources/" + displayInfoImage.saveFileName);
+            this.$placeStreet.html(displayInfoObj.placeStreet);
+            this.$placeLot.html(displayInfoObj.placeLot);
+            this.$placeName.html(displayInfoObj.placeName);
+            this.$telephone.html(displayInfoObj.telephone);
         },
         clickDetailInfoLi : function() {
             var $clickElement = $(event.currentTarget);
