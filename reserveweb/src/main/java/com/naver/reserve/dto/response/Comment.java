@@ -1,14 +1,12 @@
 package com.naver.reserve.dto.response;
 
 import com.naver.reserve.dto.common.SystemDate;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-@Data
 @Getter
 @Setter
 @ToString

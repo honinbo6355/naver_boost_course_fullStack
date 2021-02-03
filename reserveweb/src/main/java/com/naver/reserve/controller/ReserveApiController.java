@@ -1,15 +1,14 @@
 package com.naver.reserve.controller;
 
 import com.naver.reserve.dto.request.MoreViewRequestDto;
-import com.naver.reserve.dto.response.DisplayInfoResponse;
-import com.naver.reserve.dto.response.ProductResponseDto;
-import com.naver.reserve.dto.response.PromotionResponseDto;
+import com.naver.reserve.dto.request.ReservationParam;
+import com.naver.reserve.dto.response.*;
 import com.naver.reserve.service.ProductService;
 import com.naver.reserve.service.PromotionService;
+import com.naver.reserve.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.naver.reserve.dto.response.CategoryResponseDto;
 import com.naver.reserve.service.CategoryService;
 
 @RestController
@@ -24,6 +23,9 @@ public class ReserveApiController {
 
 	@Autowired
 	private PromotionService promotionService;
+
+	@Autowired
+	private ReservationService reservationService;
 
 	@GetMapping("categories")
 	public CategoryResponseDto getCategories() {
@@ -45,5 +47,10 @@ public class ReserveApiController {
 	@GetMapping("promotions")
 	public PromotionResponseDto getPromotions() {
 		return promotionService.getPromotion();
+	}
+
+	@PostMapping("reservations")
+	public void createReservation(ReservationParam reservationParam) {
+		reservationService.createReservation(reservationParam);
 	}
 }
