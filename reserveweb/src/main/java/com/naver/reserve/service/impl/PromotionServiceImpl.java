@@ -13,15 +13,9 @@ public class PromotionServiceImpl implements PromotionService {
     private PromotionMapper promotionMapper;
 
     @Override
-    public PromotionResponseDto getPromotion() {
+    public PromotionResponseDto getPromotion() throws Exception {
         PromotionResponseDto promotionResponseDto = new PromotionResponseDto();
-        try {
-            promotionResponseDto.setItems(promotionMapper.selectPromotion());
-            System.out.println("promotionResponseDto : " + promotionResponseDto);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        promotionResponseDto.setItems(promotionMapper.selectPromotion());
 
         return promotionResponseDto;
     }

@@ -7,6 +7,8 @@ import com.naver.reserve.service.ProductService;
 import com.naver.reserve.service.PromotionService;
 import com.naver.reserve.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.naver.reserve.service.CategoryService;
@@ -28,29 +30,69 @@ public class ReserveApiController {
 	private ReservationService reservationService;
 
 	@GetMapping("categories")
-	public CategoryResponseDto getCategories() {
+	public ResponseEntity<CategoryResponseDto> getCategories() {
 		System.out.println("getCategories");
-		return categoryService.getCategory();
+		ResponseEntity<CategoryResponseDto> response = null;
+		try {
+			response = new ResponseEntity<>(categoryService.getCategory(), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return response;
 	}
 
 	@GetMapping("products")
-	public ProductResponseDto getProducts(@RequestParam int categoryId, @RequestParam(defaultValue = "0") int start) {
-		MoreViewRequestDto moreViewRequestDto = new MoreViewRequestDto(start);
-		return productService.getProduct(categoryId, moreViewRequestDto);
+	public ResponseEntity<ProductResponseDto> getProducts(@RequestParam int categoryId, @RequestParam(defaultValue = "0") int start) {
+		ResponseEntity<ProductResponseDto> response = null;
+		try {
+			MoreViewRequestDto moreViewRequestDto = new MoreViewRequestDto(start);
+			response = new ResponseEntity<>(productService.getProduct(categoryId, moreViewRequestDto), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return response;
 	}
 
 	@GetMapping("products/{displayInfoId}")
-	public DisplayInfoResponse getProductsDetail(@PathVariable("displayInfoId") int displayInfoId) {
-		return productService.getProductDetail(displayInfoId);
+	public ResponseEntity<DisplayInfoResponse> getProductsDetail(@PathVariable("displayInfoId") int displayInfoId) {
+		ResponseEntity<DisplayInfoResponse> response = null;
+		try {
+			response = new ResponseEntity<>(productService.getProductDetail(displayInfoId), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return response;
 	}
 
 	@GetMapping("promotions")
-	public PromotionResponseDto getPromotions() {
-		return promotionService.getPromotion();
+	public ResponseEntity<PromotionResponseDto> getPromotions() {
+		ResponseEntity<PromotionResponseDto> response = null;
+		try {
+			response = new ResponseEntity<>(promotionService.getPromotion(), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return response;
 	}
 
 	@PostMapping("reservations")
-	public void createReservation(ReservationParam reservationParam) {
-		reservationService.createReservation(reservationParam);
+	public ResponseEntity<Integer> createReservation(@RequestBody ReservationParam reservationParam) {
+		ResponseEntity<Integer> response = null;
+		try {
+			response = new ResponseEntity<>(reservationService.createReservation(reservationParam), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return response;
 	}
 }

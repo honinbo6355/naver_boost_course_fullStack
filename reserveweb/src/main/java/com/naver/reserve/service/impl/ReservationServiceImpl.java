@@ -13,7 +13,7 @@ public class ReservationServiceImpl implements ReservationService {
     private ReservationInfoMapper reservationInfoMapper;
 
     @Override
-    public void createReservation(ReservationParam reservationParam) {
-
+    public int createReservation(ReservationParam reservationParam) throws Exception {
+        return reservationInfoMapper.insertReservation(reservationParam);
     }
 }

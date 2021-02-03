@@ -14,13 +14,9 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryMapper categoryMapper;
 
 	@Override
-	public CategoryResponseDto getCategory() {
+	public CategoryResponseDto getCategory() throws Exception {
 		CategoryResponseDto categoryResponseDto = new CategoryResponseDto();
-		try {
-			categoryResponseDto.setItems(categoryMapper.selectCategory());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		categoryResponseDto.setItems(categoryMapper.selectCategory());
 		return categoryResponseDto;
 	}
 }

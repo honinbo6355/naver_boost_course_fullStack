@@ -31,40 +31,32 @@ public class ProductServiceImpl implements ProductService {
     private ProductPriceMapper productPriceMapper;
 
     @Override
-    public ProductResponseDto getProduct(int categoryId, MoreViewRequestDto moreViewRequestDto) {
+    public ProductResponseDto getProduct(int categoryId, MoreViewRequestDto moreViewRequestDto) throws Exception {
         ProductResponseDto productResponseDto = new ProductResponseDto();
-        try {
-            productResponseDto.setItems(productMapper.selectProduct(categoryId, moreViewRequestDto));
-            productResponseDto.setTotalCount(productMapper.selectProductCount(categoryId));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        productResponseDto.setItems(productMapper.selectProduct(categoryId, moreViewRequestDto));
+        productResponseDto.setTotalCount(productMapper.selectProductCount(categoryId));
 
         return productResponseDto;
     }
 
     @Override
-    public DisplayInfoResponse getProductDetail(int displayInfoId) {
+    public DisplayInfoResponse getProductDetail(int displayInfoId) throws Exception {
         DisplayInfoResponse displayInfoResponse = new DisplayInfoResponse();
-        try {
-            DisplayInfo displayInfo = displayInfoMapper.selectDisplayInfo(displayInfoId);
-            int productId = displayInfo.getProductId();
-            List<ProductImage> productImages = productImageMapper.selectProductImages(productId);
-            DisplayInfoImage displayInfoImage = displayInfoImageMapper.selectDisplayInfoImage(displayInfoId);
-            List<Comment> comments = commentMapper.selectComment(productId);
-            List<ProductPrice> productPrices = productPriceMapper.selectProductPrice(productId);
-            Double averageScore = commentMapper.selectAverageScore(productId);
+        DisplayInfo displayInfo = displayInfoMapper.selectDisplayInfo(displayInfoId);
+        int productId = displayInfo.getProductId();
+        List<ProductImage> productImages = productImageMapper.selectProductImages(productId);
+        DisplayInfoImage displayInfoImage = displayInfoImageMapper.selectDisplayInfoImage(displayInfoId);
+        List<Comment> comments = commentMapper.selectComment(productId);
+        List<ProductPrice> productPrices = productPriceMapper.selectProductPrice(productId);
+        Double averageScore = commentMapper.selectAverageScore(productId);
 
-            displayInfoResponse.setDisplayInfo(displayInfo);
-            displayInfoResponse.setProductImages(productImages);
-            displayInfoResponse.setDisplayInfoImage(displayInfoImage);
-            displayInfoResponse.setComments(comments);
-            displayInfoResponse.setProductPrices(productPrices);
-            displayInfoResponse.setAverageScore(averageScore);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        displayInfoResponse.setDisplayInfo(displayInfo);
+        displayInfoResponse.setProductImages(productImages);
+        displayInfoResponse.setDisplayInfoImage(displayInfoImage);
+        displayInfoResponse.setComments(comments);
+        displayInfoResponse.setProductPrices(productPrices);
+        displayInfoResponse.setAverageScore(averageScore);
+
         return displayInfoResponse;
     }
 }
