@@ -19,6 +19,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -49,13 +52,30 @@ public class ReservationServiceTest {
         reservationParam.setReservationEmail("test@naver.com");
         reservationParam.setReservationYearMonthDay("2020-12-12");
 
+        List<ReservationPrice> prices = new ArrayList<>();
+
+        ReservationPrice price1 = new ReservationPrice();
+        price1.setReservationInfoId(3);
+        price1.setProductPriceId(1);
+        price1.setCount(3);
+
+        ReservationPrice price2 = new ReservationPrice();
+        price2.setReservationInfoId(4);
+        price2.setProductPriceId(2);
+        price2.setCount(5);
+
+        prices.add(price1);
+        prices.add(price2);
+
+        reservationParam.setPrices(prices);
+
         String body = objectMapper.writeValueAsString(reservationParam);
 
-        MvcResult mvcResult = mockMvc.perform(post("/api/reservations")
+        MvcResult mvcResult = mockMvc.perform(post("/api/reserve")
                                 .content(body)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)).andReturn();
 
-        System.out.println(mvcResult.getResponse().getContentAsString());
+        System.out.println(mvcResult.getResponse().getStatus());
     }
 }

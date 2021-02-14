@@ -83,11 +83,25 @@ public class ReserveApiController {
 		return response;
 	}
 
-	@PostMapping("reservations")
+	@GetMapping("reserve/{displayInfoId}")
+	public ResponseEntity<ReservationResponse> getReservePageInfo(@PathVariable("displayInfoId") int displayInfoId) {
+		ResponseEntity<ReservationResponse> response = null;
+		try {
+			System.out.println("displayInfoId : " + displayInfoId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return response;
+	}
+
+	@PostMapping("reserve")
 	public ResponseEntity<Integer> createReservation(@RequestBody ReservationParam reservationParam) {
 		ResponseEntity<Integer> response = null;
 		try {
-			response = new ResponseEntity<>(reservationService.createReservation(reservationParam), HttpStatus.OK);
+			reservationService.createReservation(reservationParam);
+			response = new ResponseEntity<>(HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

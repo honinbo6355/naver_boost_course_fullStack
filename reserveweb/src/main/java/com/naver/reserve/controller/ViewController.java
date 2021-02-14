@@ -28,4 +28,12 @@ public class ViewController {
 
         return mav;
     }
+
+    @GetMapping("reserve/{displayInfoId}")
+    public ModelAndView reserve(@PathVariable("displayInfoId") int displayInfoId) {
+        ModelAndView mav = new ModelAndView("reserve");
+        mav.addObject("displayInfoId", displayInfoId);
+
+        return mav;
+    }
 }

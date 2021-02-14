@@ -3,19 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.naver.reserve.mapper.ReservationInfoMapper">
-    <insert id="insertReservation">
+    <insert id="insertReservation" parameterType="java.util.HashMap">
         INSERT
         INTO reservation_info(product_id, display_info_id, reservation_name, reservation_tel, reservation_email, reservation_date, create_date, modify_date)
         VALUES
         (
-            #{productId},
-            #{displayInfoId},
-            #{reservationName},
-            #{reservationTelephone},
-            #{reservationEmail},
-            #{reservationYearMonthDay},
+            #{reservationParam.productId},
+            #{reservationParam.displayInfoId},
+            #{reservationParam.reservationName},
+            #{reservationParam.reservationTelephone},
+            #{reservationParam.reservationEmail},
+            #{reservationParam.reservationYearMonthDay},
             now(),
             now()
         )
+        <selectKey keyProperty="reservationInfoId" resultType="int" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
     </insert>
 </mapper>

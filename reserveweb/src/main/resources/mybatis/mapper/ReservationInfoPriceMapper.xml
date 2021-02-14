@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.naver.reserve.mapper.ReservationInfoPriceMapper">
+    <insert id="insertReservationInfoPrice" parameterType="java.util.HashMap">
+        INSERT
+        INTO reservation_info_price(reservation_info_id, product_price_id, count)
+        VALUES
+        (
+            #{rId},
+            #{price.productPriceId},
+            #{price.count}
+        )
+    </insert>
+</mapper>
