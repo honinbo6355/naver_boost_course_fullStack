@@ -87,7 +87,7 @@ public class ReserveApiController {
 	public ResponseEntity<ReservationResponse> getReservePageInfo(@PathVariable("displayInfoId") int displayInfoId) {
 		ResponseEntity<ReservationResponse> response = null;
 		try {
-			System.out.println("displayInfoId : " + displayInfoId);
+			response = new ResponseEntity<>(reservationService.getReservePageInfo(displayInfoId), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

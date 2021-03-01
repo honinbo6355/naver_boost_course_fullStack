@@ -15,5 +15,4 @@ public class DisplayInfoResponse {
     private DisplayInfo displayInfo;
     private DisplayInfoImage displayInfoImage;
     private List<ProductImage> productImages;
-    private List<ProductPrice> productPrices;
 }

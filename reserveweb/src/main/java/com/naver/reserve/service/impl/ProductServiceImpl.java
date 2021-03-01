@@ -47,14 +47,12 @@ public class ProductServiceImpl implements ProductService {
         List<ProductImage> productImages = productImageMapper.selectProductImages(productId);
         DisplayInfoImage displayInfoImage = displayInfoImageMapper.selectDisplayInfoImage(displayInfoId);
         List<Comment> comments = commentMapper.selectComment(productId);
-        List<ProductPrice> productPrices = productPriceMapper.selectProductPrice(productId);
         Double averageScore = commentMapper.selectAverageScore(productId);
 
         displayInfoResponse.setDisplayInfo(displayInfo);
         displayInfoResponse.setProductImages(productImages);
         displayInfoResponse.setDisplayInfoImage(displayInfoImage);
         displayInfoResponse.setComments(comments);
-        displayInfoResponse.setProductPrices(productPrices);
         displayInfoResponse.setAverageScore(averageScore);
 
         return displayInfoResponse;

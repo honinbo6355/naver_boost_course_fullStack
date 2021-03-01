@@ -12,13 +12,8 @@ import java.util.List;
 @Setter
 @ToString
 public class ReservationResponse extends SystemDate {
-    private boolean cancelYn;
-    private String displayInfoId;
-    private List<ReservationPrice> prices;
-    private int productId;
+    private DisplayInfo displayInfo;
+    private List<ProductImage> productImages;
+    private List<ProductPrice> prices;
     private String reservationDate;
-    private String reservationEmail;
-    private int reservationInfoId;
-    private String reservationName;
-    private String reservationTelephone;
 }
