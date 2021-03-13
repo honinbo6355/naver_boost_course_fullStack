@@ -7,7 +7,24 @@
         SELECT
             id AS productPriceId,
             product_id,
-            price_type_name,
+            CASE
+                WHEN price_type_name = 'A'
+                THEN '성인'
+                WHEN price_type_name = 'B'
+                THEN '유아'
+                WHEN price_type_name = 'D'
+                THEN '장애인'
+                WHEN price_type_name = 'E'
+                THEN '얼리버드'
+                WHEN price_type_name = 'R'
+                THEN 'R석'
+                WHEN price_type_name = 'S'
+                THEN 'S석'
+                WHEN price_type_name = 'V'
+                THEN 'VIP'
+                WHEN price_type_name = 'Y'
+                THEN '청소년'
+                END AS price_type_name,
             price,
             discount_rate,
             create_date,

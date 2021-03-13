@@ -83,6 +83,7 @@
             this.render();
         },
         cacheDom : function() {
+            this.$reserveBtn = $("#reserveBtn");
             this.$detailInfoLis = $("#detailInfoTab > li");
             this.$productIntro = $("#productIntro");
             this.$detailInfoDiv = $("#detailInfoDiv");
@@ -94,6 +95,7 @@
             this.$telephone = $("#telephone");
         },
         bindEvent : function() {
+            this.$reserveBtn.on('click', this.clickReserveBtn);
             this.$detailInfoLis.on('click', this.clickDetailInfoLi.bind(this));
         },
         render : function() {
@@ -103,6 +105,9 @@
             this.$placeLot.html(common.displayInfoObj.placeLot);
             this.$placeName.html(common.displayInfoObj.placeName);
             this.$telephone.html(common.displayInfoObj.telephone);
+        },
+        clickReserveBtn : function() {
+            window.location.href = "/reserve/" + displayInfoId;
         },
         clickDetailInfoLi : function() {
             var $clickElement = $(event.currentTarget);

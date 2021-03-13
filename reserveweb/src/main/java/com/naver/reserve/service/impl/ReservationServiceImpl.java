@@ -11,9 +11,12 @@ import com.naver.reserve.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -57,9 +60,15 @@ public class ReservationServiceImpl implements ReservationService {
         List<ProductImage> productImages = productImageMapper.selectProductImages(productId);
         List<ProductPrice> prices = productPriceMapper.selectProductPrice(productId);
 
+        Random random = new Random();
+        int randDay = random.nextInt(5) + 1;
+
+        String reservationDate = LocalDate.now().plusDays(randDay).toString();
+
         reservationResponse.setDisplayInfo(displayInfo);
         reservationResponse.setProductImages(productImages);
         reservationResponse.setPrices(prices);
+        reservationResponse.setReservationDate(reservationDate);
 
         return reservationResponse;
     }
