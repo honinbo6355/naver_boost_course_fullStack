@@ -8,8 +8,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class ReservationPrice {
-    private int reservationInfoPriceId;
-    private int reservationInfoId;
-    private int productPriceId;
-    private int count;
+    private int reservationInfoPriceId; // 예매 가격 id
+    private int reservationInfoId; // 예매 정보 id
+    private int productPriceId; // 상품 가격 id
+    private int count; // 예매수
 }

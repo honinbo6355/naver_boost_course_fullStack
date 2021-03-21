@@ -110,7 +110,7 @@ const common = (function() {
     }
 })();
 
-function getDateStr_yyyymmdd(dateStr) {
+function getDateCommaStr_yyyymmdd(dateStr) {
     var date = new Date(dateStr);
     var yyyy = date.getFullYear().toString();
     var mm = (date.getMonth()+1).toString();

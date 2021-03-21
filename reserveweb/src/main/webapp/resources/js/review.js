@@ -47,7 +47,7 @@
             $.each(commentArr, function(index, item) {
                 var resultItem = $.extend(true, {}, item, {
                     "score": item.score.toFixed(1),
-                    "reservationDate": getDateStr_yyyymmdd(item.reservationDate)
+                    "reservationDate": getDateCommaStr_yyyymmdd(item.reservationDate)
                 });
                 $("#commentItemTmpl").tmpl(resultItem).appendTo(this.$reviewUl);
             }.bind(this));

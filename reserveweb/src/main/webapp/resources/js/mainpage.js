@@ -10,6 +10,7 @@
 		},
 	
 		eventListener : function() {
+		    $("#totalList").on("click", mainPage.selectTotalList);
 			$("#moreViewBtn").on("click", mainPage.moreView);
 		},
 	
@@ -97,8 +98,8 @@
 			mainPage.setProductCount(mainPage.totalProductCount);
 		},
 	
-		selectTotalList : function(selectedCate) {
-			mainPage.selectCate(selectedCate, mainPage.totalProductCount);
+		selectTotalList : function() {
+			mainPage.selectCate(this, mainPage.totalProductCount);
 		},
 	
 		setProductCount : function(count) {

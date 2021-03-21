@@ -11,6 +11,8 @@
 		FROM category a
 			INNER JOIN product b
 				ON a.id = b.category_id
+			RIGHT OUTER JOIN display_info c
+				ON b.id = c.product_id
 		GROUP BY a.id
 	</select>
 </mapper>
