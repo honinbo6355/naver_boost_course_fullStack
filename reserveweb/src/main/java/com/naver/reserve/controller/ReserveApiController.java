@@ -97,14 +97,14 @@ public class ReserveApiController {
 	}
 
 	@PostMapping("reserve")
-	public ResponseEntity<Integer> createReservation(@RequestBody ReservationParam reservationParam) {
-		ResponseEntity<Integer> response = null;
+	public ResponseEntity createReservation(@RequestBody ReservationParam reservationParam) {
+		ResponseEntity response = null;
 		try {
 			reservationService.createReservation(reservationParam);
-			response = new ResponseEntity<>(HttpStatus.OK);
+			response = new ResponseEntity(HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			response = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		return response;

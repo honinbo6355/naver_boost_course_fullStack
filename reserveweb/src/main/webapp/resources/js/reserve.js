@@ -3,7 +3,24 @@
 
     const displayInfoId = $("#displayInfoId").val();
     let prices = [];
-    let reservationDate = "";
+    let totalCount = 0;
+
+    let payload = {
+        "displayInfoId" : Number(displayInfoId),
+        "prices" : [],
+        "productId" : 0,
+        "reservationName" : "",
+        "reservationTelephone" : "",
+        "reservationEmail" : "",
+        "reservationYearMonthDay" : ""
+    };
+
+    let formValidCheck = {
+        "reservationName" : false,
+        "reservationTelephone" : false,
+        "reservationEmail" : false,
+        "terms" : false
+    };
 
     const reserveController = {
         init : function() {
@@ -25,8 +42,10 @@
                 console.log("response : " + response);
                 common.productImageObj.productImages = response.productImages;
                 common.displayInfoObj = response.displayInfo;
+
+                payload.productId = response.displayInfo.productId;
+                payload.reservationYearMonthDay = response.reservationDate;
                 prices = response.prices;
-                reservationDate = response.reservationDate;
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 console.log("textStatus : " + textStatus);
             });
@@ -43,13 +62,18 @@
             this.$ticketContainer = $("#ticketContainer");
         },
         bindEvent : function() {
-            prices.forEach(function(item) {
+            prices.forEach(function(item, index) {
+                payload.prices[index] = {
+                    "productPriceId" : item.productPriceId,
+                    "count" : 0
+                };
+
                 this.$ticketContainer.on("click", "#amountMinusBtn_" + item.productPriceId, function() {
-                    this.clickAmountMinusBtn(item.productPriceId)
+                    this.clickAmountMinusBtn(index, item.productPriceId);
                 }.bind(this));
 
                 this.$ticketContainer.on("click", "#amountPlusBtn_" + item.productPriceId, function() {
-                    this.clickAmountPlusBtn(item.productPriceId);
+                    this.clickAmountPlusBtn(index, item.productPriceId);
                 }.bind(this));
             }.bind(this));
         },
@@ -58,7 +82,7 @@
                 $("#priceItemTmpl").tmpl(item).appendTo(this.$ticketContainer);
             }.bind(this));
         },
-        clickAmountMinusBtn : function(productPriceId) {
+        clickAmountMinusBtn : function(index, productPriceId) {
             var $amount = $("#amount_" + productPriceId);
             var resultAmountVal;
 
@@ -75,8 +99,11 @@
             }
 
             this.calculateTotalTypePrice(resultAmountVal, $("#price_" + productPriceId), $("#totalPrice_" + productPriceId));
+            this.calculatePayloadProductPriceCount(index, -1);
+            this.calculateTotalCount(-1);
+            reserveFormView.validReserveBtn();
         },
-        clickAmountPlusBtn : function(productPriceId) {
+        clickAmountPlusBtn : function(index, productPriceId) {
             var $amount = $("#amount_" + productPriceId);
             var resultAmountVal;
 
@@ -88,22 +115,102 @@
             $amount.val(resultAmountVal);
 
             this.calculateTotalTypePrice(resultAmountVal, $("#price_" + productPriceId), $("#totalPrice_" + productPriceId));
+            this.calculatePayloadProductPriceCount(index, 1);
+            this.calculateTotalCount(1);
+            reserveFormView.validReserveBtn();
         },
         calculateTotalTypePrice : function(amountVal, $typePrice, $totalTypePrice) {
             $totalTypePrice.text(amountVal * Number($typePrice.text()));
         },
+        calculatePayloadProductPriceCount : function(index, count) {
+            payload.prices[index].count += count;
+        },
+        calculateTotalCount : function(count) {
+            totalCount += count;
+            reserveFormView.$totalCount.text(totalCount);
+        }
     };
 
     const reserveFormView = {
         init : function() {
             this.cacheDom();
+            this.bindEvent();
             this.render();
         },
         cacheDom : function() {
+            this.$name = $("#name");
+            this.$tel = $("#tel");
+            this.$email = $("#email");
             this.$reservationDate = $("#reservationDate");
+            this.$totalCount = $("#totalCount");
+            this.$termsChk = $("#termsChk");
+            this.$reserveDiv = $("#reserveDiv");
+        },
+        bindEvent : function() {
+            this.$name.on("keyup", this.inputName);
+            this.$tel.on("keyup", this.inputTel);
+            this.$email.on("keyup", this.inputEmail);
+            this.$termsChk.on("click", this.clickTerms);
+            this.$reserveDiv.on("click", this.clickReserveBtn);
+        },
+        inputName : function() {
+            payload.reservationName = $(this).val().trim();
+
+            if ($(this).val().trim().length === 0) {
+                formValidCheck.reservationName = false;
+            } else {
+                formValidCheck.reservationName = true;
+            }
+
+            reserveFormView.validReserveBtn();
+        },
+        inputTel : function() {
+            payload.reservationTelephone = $(this).val().trim();
+
+            if ($(this).val().trim().length === 0) {
+                formValidCheck.reservationTelephone = false;
+            } else {
+                formValidCheck.reservationTelephone = true;
+            }
+
+            reserveFormView.validReserveBtn();
+        },
+        inputEmail : function() {
+            payload.reservationEmail = $(this).val();
+
+            if ($(this).val().trim().length === 0) {
+                formValidCheck.reservationEmail = false;
+            } else {
+                formValidCheck.reservationEmail = true;
+            }
+
+            reserveFormView.validReserveBtn();
+        },
+        clickTerms : function() {
+            formValidCheck.terms = $(this).prop("checked");
+            reserveFormView.validReserveBtn();
+        },
+        validReserveBtn : function() {
+            if (Object.keys(formValidCheck).every(element => formValidCheck[element] === true) && totalCount > 0) {
+                this.$reserveDiv.removeClass("disable");
+            } else {
+                this.$reserveDiv.addClass("disable");
+            }
+        },
+        clickReserveBtn : function() {
+            $.ajax({
+                url: "/api/reserve",
+                type: "POST",
+                data: JSON.stringify(payload),
+                contentType: "application/json; charset=utf-8",
+            }).done(function(response, textStatus, jqXHR) {
+                console.log("response : " + response);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.log("textStatus : " + textStatus);
+            });
         },
         render : function() {
-            this.$reservationDate.text(getDateCommaStr_yyyymmdd(reservationDate));
+            this.$reservationDate.text(getDateCommaStr_yyyymmdd(payload.reservationYearMonthDay));
         }
     };
 
