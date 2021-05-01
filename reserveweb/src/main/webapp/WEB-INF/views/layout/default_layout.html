@@ -7,7 +7,12 @@
     <head>
         <th:block th:replace="../fragment/cmHead :: cmHead"></th:block>
     </head>
-    <body>
+
+    <body th:if="${loginPage}" class="biz  ko">
+        <th:block layout:fragment="content"></th:block>
+        <th:block layout:fragment="script"></th:block>
+    </body>
+    <body th:unless="${loginPage}" id="container">
         <div id="container">
             <th:block th:replace="../fragment/cmHeader :: cmHeader"></th:block>
             <th:block layout:fragment="content"></th:block>

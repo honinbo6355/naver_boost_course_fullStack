@@ -36,4 +36,12 @@ public class ViewController {
 
         return mav;
     }
+
+    @GetMapping("bookinglogin")
+    public ModelAndView bookingLogin() {
+        ModelAndView mav = new ModelAndView("bookinglogin");
+        mav.addObject("loginPage", true);
+
+        return mav;
+    }
 }
