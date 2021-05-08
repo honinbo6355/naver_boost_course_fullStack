@@ -10,6 +10,7 @@ import com.naver.reserve.mapper.*;
 import com.naver.reserve.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,6 +38,7 @@ public class ReservationServiceImpl implements ReservationService {
     private ProductPriceMapper productPriceMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void createReservation(ReservationParam reservationParam) throws Exception {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("reservationParam", reservationParam);

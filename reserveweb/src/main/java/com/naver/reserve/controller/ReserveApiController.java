@@ -3,15 +3,17 @@ package com.naver.reserve.controller;
 import com.naver.reserve.dto.request.MoreViewRequestDto;
 import com.naver.reserve.dto.request.ReservationParam;
 import com.naver.reserve.dto.response.*;
-import com.naver.reserve.service.ProductService;
-import com.naver.reserve.service.PromotionService;
-import com.naver.reserve.service.ReservationService;
+import com.naver.reserve.entity.User;
+import com.naver.reserve.jwt.TokenProvider;
+import com.naver.reserve.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import com.naver.reserve.service.CategoryService;
 
 @RestController
 @RequestMapping(path="/api")
@@ -28,6 +30,15 @@ public class ReserveApiController {
 
 	@Autowired
 	private ReservationService reservationService;
+
+	@Autowired
+	private UserService userService;
+
+	@Autowired
+	private TokenProvider tokenProvider;
+
+	@Autowired
+	private AuthenticationManagerBuilder authenticationManagerBuilder;
 
 	@GetMapping("categories")
 	public ResponseEntity<CategoryResponseDto> getCategories() {
@@ -108,5 +119,32 @@ public class ReserveApiController {
 		}
 
 		return response;
+	}
+
+	@PostMapping("signup")
+	public ResponseEntity signup(@RequestBody User user) {
+		ResponseEntity response = null;
+		try {
+			userService.signup(user);
+			response = new ResponseEntity(HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			response = new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return response;
+	}
+
+	@PostMapping("doLogin")
+	public ResponseEntity<TokenResponseDto> doLogin(@RequestBody User user) {
+		UsernamePasswordAuthenticationToken authenticationToken =
+				new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
+
+		Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		String jwt = tokenProvider.createToken(authentication);
+
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
