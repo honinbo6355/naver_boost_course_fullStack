@@ -4,12 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.naver.reserve.mapper.UserMapper">
 	<select id="selectUser" resultType="com.naver.reserve.entity.User">
-        select
-            *
-        from
-            user
-        where
-            email = #{email}
+        select *
+        from user
+        where email = #{email}
 	</select>
 
     <insert id="insertUser" parameterType="com.naver.reserve.entity.User">
@@ -20,4 +17,16 @@
             SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
+
+    <insert id="insertAuthority" parameterType="com.naver.reserve.entity.Authority">
+        INSERT
+        INTO user_authority(user_id, authority_name)
+        VALUES(#{userId}, #{authorityName})
+    </insert>
+
+    <select id="selectAuthority" resultType="String">
+        SELECT authority_name
+        FROM user_authority
+        where user_id = #{userId}
+    </select>
 </mapper>

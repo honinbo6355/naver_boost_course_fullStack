@@ -1,5 +1,6 @@
 package com.naver.reserve.service.impl;
 
+import com.naver.reserve.entity.Authority;
 import com.naver.reserve.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,7 +20,7 @@ public class UserServiceImpl implements UserService {
 	private PasswordEncoder passwordEncoder;
 
 	@Transactional(rollbackFor = Exception.class)
-	public User signup(User user) throws Exception {
+	public void signup(User user) throws Exception {
 		if (userMapper.selectUser(user.getEmail()) != null) {
 			throw new Exception("이미 가입되어 있는 유저입니다.");
 		}
@@ -27,8 +28,10 @@ public class UserServiceImpl implements UserService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userMapper.insertUser(user);
 
-		System.out.println(user);
+		Authority authority = new Authority();
+		authority.setUserId(user.getUserId());
+		authority.setAuthorityName("ROLE_USER");
 
-		return null;
+		userMapper.insertAuthority(authority);
 	}
 }

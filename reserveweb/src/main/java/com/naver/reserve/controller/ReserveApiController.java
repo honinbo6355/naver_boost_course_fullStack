@@ -4,9 +4,11 @@ import com.naver.reserve.dto.request.MoreViewRequestDto;
 import com.naver.reserve.dto.request.ReservationParam;
 import com.naver.reserve.dto.response.*;
 import com.naver.reserve.entity.User;
+import com.naver.reserve.jwt.JwtFilter;
 import com.naver.reserve.jwt.TokenProvider;
 import com.naver.reserve.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -136,15 +138,19 @@ public class ReserveApiController {
 	}
 
 	@PostMapping("doLogin")
-	public ResponseEntity<TokenResponseDto> doLogin(@RequestBody User user) {
+	public ResponseEntity doLogin(@RequestBody User user) {
 		UsernamePasswordAuthenticationToken authenticationToken =
 				new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
 
 		Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		String jwt = tokenProvider.createToken(authentication);
 
-		return new ResponseEntity<>(HttpStatus.OK);
+		HttpHeaders httpHeaders = new HttpHeaders();
+		httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
+
+		return new ResponseEntity(HttpStatus.OK, httpHeaders, HttpStatus.OK);
 	}
 }
