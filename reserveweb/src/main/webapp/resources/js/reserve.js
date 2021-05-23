@@ -37,7 +37,8 @@
                 url : "/api/reserve/" + displayInfoId,
                 type : "GET",
                 dataType : "json",
-                async : false
+                async : false,
+                headers : {"Authorization" : localStorage.getItem("token")}
             }).done(function(response, textStatus, jqXHR) {
                 console.log("response : " + response);
                 common.productImageObj.productImages = response.productImages;
@@ -48,6 +49,7 @@
                 prices = response.prices;
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 console.log("textStatus : " + textStatus);
+                window.location.href = "/mainpage";
             });
         }
     };

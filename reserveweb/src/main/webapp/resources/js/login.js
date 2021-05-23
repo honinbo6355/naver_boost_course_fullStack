@@ -35,6 +35,9 @@
                 contentType: "application/json; charset=utf-8",
             }).done(function(response, textStatus, jqXHR) {
                 console.log("response : " + response);
+                localStorage.setItem("token", jqXHR.getResponseHeader("Authorization"));
+
+                window.location.href = "/mainpage";
             }).fail(function(jqXHR, textStatus, errorThrown) {
                 console.log("textStatus : " + textStatus);
             });

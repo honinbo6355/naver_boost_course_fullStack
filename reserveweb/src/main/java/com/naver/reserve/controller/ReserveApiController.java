@@ -110,7 +110,7 @@ public class ReserveApiController {
 	}
 
 	@PostMapping("reserve")
-	public ResponseEntity createReservation(@RequestBody ReservationParam reservationParam) {
+	public ResponseEntity<String> createReservation(@RequestBody ReservationParam reservationParam) {
 		ResponseEntity response = null;
 		try {
 			reservationService.createReservation(reservationParam);
@@ -124,7 +124,7 @@ public class ReserveApiController {
 	}
 
 	@PostMapping("signup")
-	public ResponseEntity signup(@RequestBody User user) {
+	public ResponseEntity<String> signup(@RequestBody User user) {
 		ResponseEntity response = null;
 		try {
 			userService.signup(user);
@@ -138,7 +138,7 @@ public class ReserveApiController {
 	}
 
 	@PostMapping("doLogin")
-	public ResponseEntity doLogin(@RequestBody User user) {
+	public ResponseEntity<String> doLogin(@RequestBody User user) {
 		UsernamePasswordAuthenticationToken authenticationToken =
 				new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
 
